@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.webmark.mapper.webmarkMapper">
+
+<!-- 로그인 관련 -->
+
+<select id="loginById" parameterType="com.webmark.model.AccountVO" resultType="com.webmark.model.AccountVO">
+	select user_id as userid, user_pw as userpw, user_name as username, user_nick as usernick,
+		   e_mail as email, user_type as usertype, to_char(create_date, 'yyyy/mm/dd') "createdate"
+	from accountwm
+	where user_id = #{userid} and user_pw = #{userpw}
+</select>
+
+<select id="loginByEmail" parameterType="com.webmark.model.AccountVO" resultType="com.webmark.model.AccountVO">
+	select user_id as userid, user_pw as userpw, user_name as username, user_nick as usernick,
+		   e_mail as email, user_type as usertype, to_char(create_date, 'yyyy/mm/dd') "createdate"
+	from accountwm
+	where e_mail = #{userid} and user_pw = #{userpw}
+</select>
+
+<!-- 카테고리, URL 조회 관련 -->
+
+<select id="checkId" parameterType="long" resultType="String">
+	select user_id from category where cat_num = #{cat_no}
+</select>
+
+<select id="getCategoryList" parameterType="String" resultType="com.webmark.model.CategoryVO">
+	select cat_num as cat_no, cat_name from category where user_id = #{userid}
+</select>
+
+<select id="getUrlList" parameterType="long" resultType="com.webmark.model.UrlVO">
+	select url_num, url_address, url_name, url_access, tag from urlwm where cat_num = #{cat_no}
+</select>
+
+<select id="searchUrl" parameterType="com.webmark.model.SearchUrlVO" resultType="com.webmark.model.SearchUrlVO">
+	select u.cat_num, cat_name, url_num, url_address, url_name, url_access, tag
+	from urlwm u, category c
+	where u.cat_num = c.cat_num and c.user_id = #{user_id} and u.url_name like #{url_name}
+</select>
+
+<!-- 카테고리 편집 관련 -->
+
+<select id="checkCategoryName" parameterType="com.webmark.model.CategoryVO" resultType="com.webmark.model.CategoryVO">
+	select cat_num as cat_no from category where user_id = #{user_id} and cat_name = #{cat_name}
+</select>
+
+<insert id="addCategory" parameterType="com.webmark.model.CategoryVO">
+	insert into category values (category_seq.nextval,#{user_id},#{cat_name})
+</insert>
+
+<!-- URL 편집 관련 -->
+
+<!-- 공지 게시판 리스트 조회 및 페이징 관련 -->
+
+<!-- 공지 게시판 글 상세조회 및 편집 관련 -->
+
+</mapper>
