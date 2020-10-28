@@ -9,14 +9,15 @@ public class CategoryVO implements Serializable {
 	private long cat_no;
 	private String cat_name;
 	
-	private String user_id;
+	private String userid;
 	
-	public String getUser_id() {
-		return user_id;
+	public String getUserid() {
+		return userid;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
+	
 	
 	public long getCat_no() {
 		return cat_no;

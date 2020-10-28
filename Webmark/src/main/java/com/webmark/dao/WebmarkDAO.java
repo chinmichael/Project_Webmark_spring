@@ -1,6 +1,5 @@
 package com.webmark.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.webmark.model.AccountVO;
@@ -21,36 +20,36 @@ public interface WebmarkDAO {
 	
 	public List<CategoryVO> getCategoryList (String userid);
 	public List<UrlVO> getUrlList (long cat_no);
-	public List<SearchUrlVO> searchUrl(String userid, String urlname);
+	public List<SearchUrlVO> searchUrl(SearchUrlVO vo);
 	
 	// 카테고리 편집 관련
-	public Integer checkCategoryName(String userid, String cat_name);
-	public Integer addCategory(String userid, String cat_name);
+	public Long checkCategoryName(CategoryVO vo);
+	public Integer addCategory(CategoryVO vo);
 	
-	public void deleteCategory (long cat_no);
+	public Integer deleteCategory (long cat_no);
 	
 	// URL 편집 관련
-	public Integer checkUrlName(long cat_no, String url_name);
+	public Long checkUrlName(UrlVO vo);
 	
-	public Integer addUrl(long cat_no, UrlVO vo);
-	public Integer editUrl(long cat_no, UrlVO vo);
+	public Integer addUrl(UrlVO vo);
+	public Integer editUrl(UrlVO vo);
 	
 	public Integer deleteUrl(long url_num);
 	
 	// 공지 게시판 리스트 조회 및 페이징 관련
 	public List<NoticeVO> getNoticePagingList(NoticePagingVO vo);
-	public HashMap<String, Object> getNoticePagingListCnt (NoticePagingVO vo);
+	public Long getNoticePagingListCnt (NoticePagingVO vo);
 	
-	public List<NoticeVO> getSearchNoticeByNamePaging (NoticePagingVO vo, String searchName);
-	public List<NoticeVO> getSearchNoticeByTitlePaging (NoticePagingVO vo, String searchName);
+	public List<NoticeVO> getSearchNoticeByNamePaging (NoticePagingVO vo);
+	public List<NoticeVO> getSearchNoticeByTitlePaging (NoticePagingVO vo);
 	
-	public HashMap<String, Object> getSearchNoticeByNamePagingCnt(NoticePagingVO paging, String searchName);
-	public HashMap<String, Object> getSearchNoticeByTitlePagingCnt(NoticePagingVO paging, String searchName);
+	public Long getSearchNoticeByNamePagingCnt(NoticePagingVO paging);
+	public Long getSearchNoticeByTitlePagingCnt(NoticePagingVO paging);
 	
 	// 공지 게시판 글 상세조회 및 편집 관련
 	public NoticeVO getNoticeContents (long notice_num);
-	public Integer insertNotice (NoticeVO vo);
-	public Integer insertNoticeWithAttach (NoticeVO vo);
+	public Integer addNotice (NoticeVO vo);
+	public Integer addNoticeWithAttach (NoticeVO vo);
 	public Integer editNotice (NoticeVO vo);
 	public Integer deleteNotice (long notice_num);
 	

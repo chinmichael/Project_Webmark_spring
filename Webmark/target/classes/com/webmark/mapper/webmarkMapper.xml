@@ -22,8 +22,8 @@
 
 <!-- 카테고리, URL 조회 관련 -->
 
-<select id="checkId" parameterType="long" resultType="String">
-	select user_id from category where cat_num = #{cat_no}
+<select id="categoryCheckId" parameterType="long" resultType="String">
+	select user_id as userid from category where cat_num = #{cat_no}
 </select>
 
 <select id="getCategoryList" parameterType="String" resultType="com.webmark.model.CategoryVO">
@@ -37,23 +37,110 @@
 <select id="searchUrl" parameterType="com.webmark.model.SearchUrlVO" resultType="com.webmark.model.SearchUrlVO">
 	select u.cat_num, cat_name, url_num, url_address, url_name, url_access, tag
 	from urlwm u, category c
-	where u.cat_num = c.cat_num and c.user_id = #{user_id} and u.url_name like #{url_name}
+	where u.cat_num = c.cat_num and c.user_id = #{userid} and u.url_name like #{url_name}
 </select>
 
 <!-- 카테고리 편집 관련 -->
 
-<select id="checkCategoryName" parameterType="com.webmark.model.CategoryVO" resultType="com.webmark.model.CategoryVO">
-	select cat_num as cat_no from category where user_id = #{user_id} and cat_name = #{cat_name}
+<select id="checkCategoryName" parameterType="com.webmark.model.CategoryVO" resultType="Long">
+	select cat_num as cat_no from category where user_id = #{userid} and cat_name = #{cat_name}
 </select>
 
 <insert id="addCategory" parameterType="com.webmark.model.CategoryVO">
-	insert into category values (category_seq.nextval,#{user_id},#{cat_name})
+	insert into category values (category_seq.nextval,#{userid},#{cat_name})
 </insert>
+
+<delete id="deleteCategory" parameterType="long">
+	delete from category where cat_num = #{cat_no}
+</delete>
 
 <!-- URL 편집 관련 -->
 
+<select id="checkUrlName" parameterType="com.webmark.model.UrlVO" resultType="Long">
+	select url_num from urlwm where cat_num = #{cat_no} and url_name = #{url_name}
+</select>
+
+<insert id="addUrl" parameterType="com.webmark.model.UrlVO">
+	insert into urlwm values (urlwm_seq.nextval,#{cat_no},#{url_address},#{url_name},#{url_access},#{tag})
+</insert>
+
+<update id="editUrl" parameterType="com.webmark.model.UrlVO">
+	update urlwm set cat_num = #{cat_no}, url_address = #{url_address}, url_name = #{url_name}, url_access = #{url_access}, tag = #{tag}
+	where url_num = #{url_num}
+</update>
+
+<delete id="deleteUrl" parameterType="long">
+	delete from urlwm where url_num = #{url_num}
+</delete>
+
 <!-- 공지 게시판 리스트 조회 및 페이징 관련 -->
 
+<select id="getNoticePagingList" parameterType="com.webmark.model.NoticePagingVO" resultType="com.webmark.model.NoticeVO">
+		select a.*
+		from (select a.*, rownum rnum, floor((rownum - 1)/#{rows}) + 1 pageNumber
+				from (select notice_num, user_id as userid, notice_title, to_char(write_date, 'yyyy/mm/dd') "write_date"
+						from notice order by notice_num desc)a)a
+		where a.pageNumber = #{page} order by a.rnum
+</select>
+
+<select id="getNoticePagingListCnt" parameterType="com.webmark.model.NoticePagingVO" resultType="Long">
+	select count(*), ceil(count(*)/#{rows}) totalPage from notice order by notice_num desc
+</select>
+
+<select id="getSearchNoticeByNamePaging" parameterType="com.webmark.model.NoticePagingVO" resultType="com.webmark.model.NoticeVO">
+	select a.*
+	from (select a.*, rownum rnum, floor((rownum - 1)/#{rows}) + 1 pageNumber
+	 		from (select notice_num, user_id as userid, notice_title, to_char(write_date, 'yyyy/mm/dd') "write_date"
+	 				from notice
+	 				where user_id like #{searchName} order by notice_num desc)a)a
+	where a.pageNumber = #{page} order by a.rnum
+</select>
+
+<select id="getSearchNoticeByTitlePaging" parameterType="com.webmark.model.NoticePagingVO" resultType="com.webmark.model.NoticeVO">
+	select a.*
+	from (select a.*, rownum rnum, floor((rownum - 1)/#{rows}) + 1 pageNumber
+	 		from (select notice_num, user_id as userid, notice_title, to_char(write_date, 'yyyy/mm/dd') "write_date"
+	 				from notice
+	 				where notice_title like #{searchName} order by notice_num desc)a)a
+	where a.pageNumber = #{page} order by a.rnum
+</select>
+
+<select id="getSearchNoticeByNamePagingCnt" parameterType="com.webmark.model.NoticePagingVO" resultType="Long">
+	select count(*), ceil(count(*)/#{rows}) totalPage
+	from notice
+	where user_id like #{searchName} order by notice_num desc
+</select>
+
+<select id="getSearchNoticeByTitlePagingCnt" parameterType="com.webmark.model.NoticePagingVO" resultType="Long">
+	select count(*), ceil(count(*)/#{rows}) totalPage
+	from notice
+	where notice_title like #{searchName} order by notice_num desc
+</select>
+
 <!-- 공지 게시판 글 상세조회 및 편집 관련 -->
+
+<select id="getNoticeContents" parameterType="long" resultType="com.webmark.model.NoticeVO">
+	select notice_num, user_id as userid, notice_contents, notice_title, notice_attach, to_char(write_date, 'yyyy/mm/dd') "write_date"
+	from notice where notice_num = #{notice_num}
+</select>
+
+<insert id="insertNotice" parameterType="com.webmark.model.NoticeVO">
+	insert into notice (notice_num,user_id,notice_title,notice_contents)
+		   values (notice_seq.nextval,#{userid},#{notice_title},#{notice_contents})
+</insert>
+
+<insert id="insertNoticeWithAttach" parameterType="com.webmark.model.NoticeVO">
+	insert into notice (notice_num,user_id,notice_title,notice_contents,notice_attach)
+		   values (notice_seq.nextval,#{userid},#{notice_title},#{notice_contents},#{notice_attach})
+</insert>
+
+<update id="editNotice" parameterType="com.webmark.model.NoticeVO">
+	update notice set user_id = #{userid}, notice_title = #{noitce_title}, notice_contents = #{notice_contents}, write_date = sysdate, notice_attach = #{notice_attach}
+	where notice_num = #{notice_num}
+</update>
+
+<delete id="deleteNotice" parameterType="long">
+	delete from notice where notice_num = #{notice_num}
+</delete>
 
 </mapper>

@@ -10,14 +10,15 @@ public class SearchUrlVO {
 	private String url_access;
 	private String tag;
 	
-	private String user_id; // 매핑 입력 파라미터 용
+	private String userid; // 매핑 입력 파라미터 용
 	
-	public String getUser_id() {
-		return user_id;
+	public String getUserid() {
+		return userid;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
+	
 	
 	public long getUrl_num() {
 		return url_num;

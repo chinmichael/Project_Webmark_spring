@@ -1,6 +1,5 @@
 package com.webmark.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,104 +22,104 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 	
 	// 로그인 관련
 	public AccountVO loginById(AccountVO vo) {
-		return session.selectOne(mn + ".loginById", vo);
+		return session.selectOne(mn + "loginById", vo);
 	}
 
 	public AccountVO loginByEmail(AccountVO vo) {
-		return session.selectOne(mn + ".loginByEmail", vo);
+		return session.selectOne(mn + "loginByEmail", vo);
 	}
 	
 	// 카테고리, URL 조회 관련
-	public String categoryCheckId(long cat_no) {
-		return null;
-	}
-
 	public List<CategoryVO> getCategoryList(String userid) {
-		return null;
+		return session.selectList(mn + "getCategoryList", userid);
+	}
+	
+	public String categoryCheckId(long cat_no) {
+		return session.selectOne(mn + "categoryCheckId", cat_no);
 	}
 
 	public List<UrlVO> getUrlList(long cat_no) {
-		return null;
+		return session.selectList(mn + "getUrlList", cat_no);
 	}
 
-	public List<SearchUrlVO> searchUrl(String userid, String urlname) {
-		return null;
+	public List<SearchUrlVO> searchUrl(SearchUrlVO vo) {
+		return session.selectList(mn + "searchUrl", vo);
 	}
 	
 	// 카테고리 편집 관련
-	public Integer checkCategoryName(String userid, String cat_name) {
-		return null;
+	public Long checkCategoryName(CategoryVO vo) {
+		return session.selectOne(mn + "checkCategoryName", vo);
 	}
 
-	public Integer addCategory(String userid, String cat_name) {
-		return null;
+	public Integer addCategory(CategoryVO vo) {
+		return session.insert(mn + "addCategory", vo); // 성공시 1 반환
 	}
 
-	public void deleteCategory(long cat_no) {
-		
+	public Integer deleteCategory(long cat_no) {
+		return session.delete(mn + "deleteCategory", cat_no);
 	}
 	
 	// URL 편집 관련
-	public Integer checkUrlName(long cat_no, String url_name) {
-		return null;
+	public Long checkUrlName(UrlVO vo) {
+		return session.selectOne(mn + "checkUrlName", vo);
 	}
 
-	public Integer addUrl(long cat_no, UrlVO vo) {
-		return null;
+	public Integer addUrl(UrlVO vo) {
+		return session.insert(mn + "addUrl", vo);
 	}
 
-	public Integer editUrl(long cat_no, UrlVO vo) {
-		return null;
+	public Integer editUrl(UrlVO vo) {
+		return session.update(mn + "editUrl", vo);
 	}
 
 	public Integer deleteUrl(long url_num) {
-		return null;
+		return session.delete(mn + "deleteUrl", url_num);
 	}
 	
 	// 공지 게시판 리스트 조회 및 페이징 관련
 	public List<NoticeVO> getNoticePagingList(NoticePagingVO vo) {
-		return null;
+		return session.selectList(mn + "getNoticePagingList", vo);
 	}
 
-	public HashMap<String, Object> getNoticePagingListCnt(NoticePagingVO vo) {
-		return null;
+	public Long getNoticePagingListCnt(NoticePagingVO vo) {
+		return session.selectOne(mn + "getNoticePagingListCnt", vo);
 	}
 
-	public List<NoticeVO> getSearchNoticeByNamePaging(NoticePagingVO vo, String searchName) {
-		return null;
+	public List<NoticeVO> getSearchNoticeByNamePaging(NoticePagingVO vo) {
+		return session.selectList(mn + "getSearchNoticeByNamePaging", vo);
 	}
 
-	public List<NoticeVO> getSearchNoticeByTitlePaging(NoticePagingVO vo, String searchName) {
-		return null;
+	public List<NoticeVO> getSearchNoticeByTitlePaging(NoticePagingVO vo) {
+		return session.selectList(mn + "getSearchNoticeByTitlePaging", vo);
 	}
 
-	public HashMap<String, Object> getSearchNoticeByNamePagingCnt(NoticePagingVO paging, String searchName) {
-		return null;
+	public Long getSearchNoticeByNamePagingCnt(NoticePagingVO vo) {
+		return session.selectOne(mn + "getSearchNoticeByNamePagingCnt", vo);
 	}
 
-	public HashMap<String, Object> getSearchNoticeByTitlePagingCnt(NoticePagingVO paging, String searchName) {
-		return null;
+	public Long getSearchNoticeByTitlePagingCnt(NoticePagingVO vo) {
+		return session.selectOne(mn + "getSearchNoticeByTitlePagingCnt", vo);
 	}
 	
 	// 공지 게시판 글 상세조회 및 편집 관련
 	public NoticeVO getNoticeContents(long notice_num) {
-		return null;
+		return session.selectOne(mn + "getNoticeContents", notice_num);
 	}
 
-	public Integer insertNotice(NoticeVO vo) {
-		return null;
+	public Integer addNotice(NoticeVO vo) {
+		return session.insert(mn + "insertNotice", vo);
 	}
 
-	public Integer insertNoticeWithAttach(NoticeVO vo) {
-		return null;
+	public Integer addNoticeWithAttach(NoticeVO vo) {
+		return session.insert(mn + "insertNoticeWithAttach", vo);
 	}
 
 	public Integer editNotice(NoticeVO vo) {
-		return null;
+		return session.update(mn + "editNotice", vo);
 	}
 
 	public Integer deleteNotice(long notice_num) {
-		return null;
+		return session.delete(mn + "deleteNotice", notice_num);
 	}
 
 }

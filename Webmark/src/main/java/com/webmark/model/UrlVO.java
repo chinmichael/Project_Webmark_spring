@@ -8,6 +8,16 @@ public class UrlVO {
 	private String url_access;
 	private String tag;
 	
+	private long cat_no;
+	
+	public long getCat_no() {
+		return cat_no;
+	}
+	public void setCat_no(long cat_no) {
+		this.cat_no = cat_no;
+	}
+	
+	
 	public long getUrl_num() {
 		return url_num;
 	}

@@ -2,12 +2,12 @@ package com.webmark.model;
 
 public class CommPagingVO {
 	
-	private long rows = 10;
+	private long rows = 10; // 페이지에 보여질 게시글 수, 상속 받는 페이징에 따라 적절히 조절
 	private long page = 1;
 	private long totalPage;
 	private long startPage = 1;
 	private long endPage;
-	private long pageScale = 5;
+	private long pageScale = 5; // 한 페이지에 보여질 페이지 수, 상속 받는 페이징에 따라 적절히 조절
 	
 	
 	public long getRows() {
