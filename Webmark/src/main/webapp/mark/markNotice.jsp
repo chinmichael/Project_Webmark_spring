@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-	<jsp:include page="/main/markNav.jsp"></jsp:include>
+	<jsp:include page="/mark/markNav.jsp"></jsp:include>
 	<main class="col bg-faded py-3 flex-grow-1">
 	
 	<%--notice contents --%>
@@ -25,7 +25,7 @@
 					<c:forEach var = "pagingList" items = "${pagingList }">
 					<tr>
 						<th scope="row">${pagingList.getNotice_num() }</th>
-						<td><a href = "/Webmark/WebmarkServlet?command=notice_board&notice_num=${pagingList.getNotice_num()}">
+						<td><a href = "/Webmark/notice/noticeCotents?notice_num=${pagingList.getNotice_num()}">
 						${pagingList.getNotice_title() }</a></td>
 						<td>${pagingList.getUserid() }</td>
 						<td>${pagingList.getWrite_date() }</td>
@@ -42,7 +42,7 @@
 			<hr>
 			<button type="button" class="btn btn-light btn-lg btn-block btn-sm"
 				style="border-radius: 10px; box-shadow: none;"
-				onclick="location.href='/KoseaFinalProject/main/noticeWrite.jsp'">
+				onclick="location.href='/Webmark/mark/noticeWrite.jsp'">
 				<i class="fas fa-plus"></i>
 			</button>
 			
@@ -52,7 +52,7 @@
 		
 		<div>
 			<form class="form-inline my-0 my-lg-0 justify-content-end" method="post"
-			action="/Webmark/WebmarkServlet?command=search_notice">
+			action="/Webmark/notice/noticeSearch.html">
 
 				<div class="form-group mx-sm-0 mb-2">
 					<select class="custom-select mr-sm-0" id="noticeSearchType"
@@ -120,9 +120,9 @@
 	
 	<script>
 		function fnGoPaging(page){
-			location.href = "/Webmark/WebmarkServlet?command=notice_list&page=" + page;
+			location.href = "/Webmark/notice/noticeList.html?page=" + page;
 		}
 	</script>
-	<jsp:include page="/main/markBottom.jsp"></jsp:include>
+	<%@ include file="/mark/markBottom.jsp" %>
 </body>
 </html>

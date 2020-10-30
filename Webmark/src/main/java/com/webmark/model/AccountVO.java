@@ -1,8 +1,12 @@
 package com.webmark.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class AccountVO {
 	
+	@NotEmpty(message="Please put in your ID")
 	private String userid;
+	@NotEmpty(message="Please put in your Password")
 	private String userpw;
 	private String username;
 	private String usernick;

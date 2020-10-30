@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -24,46 +26,30 @@
 			<div class="card-header bg-transparent border-dark" style = "text-align:center; font-size: 15pt;">
 			<i class="far fa-bookmark"></i>&nbsp;&nbsp;Sign in to Webmark</div>
 			<div class="card-body text-secondary">
-				<form action="/Webmark/WebmarkServlet?command=login" method="post" name="loginFrm">
+				<form:form modelAttribute="accountVO" action="/Webmark/account/login.html" method="post" name="loginFrm">
 					<p class="card-text" style = "margin-bottom: 5px;">ID or E-mail :</p>
 					<div class="form-group">
-						<input type="text" class="form-control" name="loginID" id="loginID" value="${loginError }">
+						<form:input path="userid" cssClass="form-control" value="${loginError }"/>
+						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userid"/></font>
 					</div>
 					<p class="card-text" style = "margin-bottom: 5px;">Password :</p>
 					<div class="form-group">
-						<input type="password" class="form-control" name="loginPW" id="loginPW">
+						<form:password path="userpw" cssClass="form-control"/>
+						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userpw"/></font>
 					</div>
 					
-					<button type="submit" class="btn btn-success btn-block" style="height:40px; margin-top:30px;" onclick="return loginCheck()">Sign in</button>
-				</form>
+					<button type="submit" class="btn btn-success btn-block" style="height:40px; margin-top:25px;" onclick="return loginCheck()">Sign in</button>
+				</form:form>
 				<h6 align="center" style="font-size:9pt; margin-top:20px; font-weight:normal; margin-bottom: 2px;">If have not Webmark account yet</h6>
 				<div style = "text-align:center; margin-top:2px;">
-					<a style="font-size:10pt;" href = "/Webmark/account/joinForm.jsp">Create new account</a>
+					<a style="font-size:10pt;" href = "/Webmark/home/joinForm.html">Create new account</a>
 				</div>
 			</div>
 		</div>
 
 
 		<div style="margin-bottom:120px;"></div>
-		
-		<script type = "text/javascript">
-			function loginCheck() {
-				
-				var userid = $("#loginID").val();
-				var userpw = $("#loginPW").val();
-				
-				if(userid == '') {
-					$("#loginID").focus();
-					return false;
-				}
-				if(userpw == '') {
-					$("#loginPW").focus();
-					return false;
-				}
-				return true;
-			}
-		</script>
 	
-	<jsp:include page="/coverBottom.jsp"></jsp:include>
+	<%@ include file="/coverBottom.jsp" %>
 </body>
 </html>

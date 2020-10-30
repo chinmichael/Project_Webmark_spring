@@ -16,13 +16,28 @@ public class UrlImpl implements Url {
 	@Autowired
 	private WebmarkDAO dao;
 	
-	public List<UrlVO> getList(long cat_no, String userid) {
-		String check = dao.categoryCheckId(cat_no);
+	public Integer checkId(String userid, long cat_no) {
+		Integer result = 0;
+		
+		try {
+			String check = dao.categoryCheckId(cat_no);
+			
+			if(userid.equals(check)) {
+				result = 1;
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public List<UrlVO> getList(long cat_no) {
 		List<UrlVO> list = new Vector<UrlVO>();
-		if(check.equals(userid)) {
+		try {
 			list = dao.getUrlList(cat_no);
-		} else {
-			list = null;
+		} catch(Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -56,5 +71,4 @@ public class UrlImpl implements Url {
 	public Integer delete(long url_num) {
 		return dao.deleteUrl(url_num);
 	}
-
 }

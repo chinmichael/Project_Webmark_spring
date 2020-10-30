@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>Welcome to Webmark</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link
@@ -92,10 +92,10 @@ footer {
 					</c:when>
 					<c:otherwise>
 
-						<li class="nav-item"><a class="nav-link" href="/account/loginForm.jsp">
+						<li class="nav-item"><a class="nav-link" href="/Webmark/home/loginForm.html">
 						<i class="fas fa-user-check"></i> &nbsp; Sign-in &nbsp; </a></li>
 						
-						<li class="nav-item"><a class="nav-link" href="/account/joinForm.jsp">
+						<li class="nav-item"><a class="nav-link" href="/Webmark/home/joinForm.html">
 						<i class="fas fa-user-edit"></i> &nbsp; Sign-up &nbsp; </a></li>
 
 					</c:otherwise>

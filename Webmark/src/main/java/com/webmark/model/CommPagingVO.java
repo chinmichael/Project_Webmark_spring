@@ -7,7 +7,7 @@ public class CommPagingVO {
 	private long totalPage;
 	private long startPage = 1;
 	private long endPage;
-	private long pageScale = 5; // 한 페이지에 보여질 페이지 수, 상속 받는 페이징에 따라 적절히 조절
+	private long pageScale = 5; // 한 페이지에 보여질 페이징 수, 상속 받는 페이징에 따라 적절히 조절
 	
 	
 	public long getRows() {

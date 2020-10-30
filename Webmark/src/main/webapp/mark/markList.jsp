@@ -6,7 +6,7 @@
 <html>
 <body>
 
-	<jsp:include page="/main/markNav.jsp"></jsp:include>
+	<jsp:include page="/mark/markNav.jsp"></jsp:include>
 
 	<%-- content --%>
 	<main class="col bg-faded py-3 flex-grow-1">
@@ -17,20 +17,20 @@
 			<c:when test="${empty cat_no && empty urlList}">
 				<div class="jumbotron jumbotron-fluid" style = "text-align : center; margin-bottom : 100px;">
 					<div class="container">
-						<h1 class="display-4">Welcome to Webgalpi!!</h1>
+						<h1 class="display-4">Welcome to Webmark!!</h1>
 						<br>
 						<p class="lead">
-							If you don't have any category, please start <a id="addCatModal2"
-								href=#>'Add New Category'!</a>
+							If you don't have any category, please start
+							<a id="addCatModal2" href=#>'Add New Category'!</a>
 
-							<jsp:include page="/main/addCatModal_list.jsp" />
+							<jsp:include page="/mark/addCatModal_list.jsp" />
 						</p>
 					</div>
 				</div>
 			</c:when>
 			
 			<c:when test = "${empty cat_no && not empty urlList }">
-				<jsp:include page = "/main/searchList.jsp" />
+				<jsp:include page = "/mark/searchList.jsp" />
 			</c:when>
 
 			<%-- url list --%>
@@ -41,9 +41,9 @@
 							<h1 class="display-4">This category is empty.</h1>
 							<br>
 							<p class="lead">
-								Please click <a href=# data-toggle="modal"
-									data-target="#addURLModal">'+' button</a> to create new URL
-								list!!
+								Please click
+								<a href=# data-toggle="modal" data-target="#addURLModal">'+' button</a>
+								to create new URL list!!
 							</p>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 					<c:forEach var="urlL" items="${urlList }">
 
 						<li class="list-group-item" style="line-height: 40px;"><a
-							href="${urlL.url_address }" target="_blank">${urlL.url_name }</a>
+							href="${urlL.url_address }" target="_blank">${urlL.url_name}</a>
 
 							<%-- Button trigger modal --%>
 
@@ -61,7 +61,10 @@
 								data-toggle="modal" style="box-shadow: none;"
 								data-target="#trashUrlModal${urlL.url_num}">
 								<i class="fas fa-trash"></i>
-							</button> <%-- Modal --%>
+							</button>
+							
+							<%-- Modal --%>
+							
 							<div class="modal fade" id="trashUrlModal${urlL.url_num}"
 								tabindex="-1"
 								aria-labelledby="trashUrlModal${urlL.url_num}Label"
@@ -90,7 +93,9 @@
 										</div>
 									</div>
 								</div>
-							</div> <%-- edit url --%>
+							</div>
+							
+							<%-- edit url --%>
 
 							<button type="button" class="btn btn-light float-right"
 								style="box-shadow: none; margin-right:5px;" data-toggle="modal"
@@ -181,7 +186,9 @@
 										</form>
 									</div>
 								</div>
-							</div> <%-- move url --%>
+							</div>
+							
+							<%-- move url --%>
 
 							<button type="button" class="btn btn-light float-right"
 								style="box-shadow: none; margin-right:5px;"
@@ -196,7 +203,7 @@
 						<button type="button" class="btn btn-light btn-lg btn-block"
 							style="border-radius: 10px; box-shadow: none;" id="addUModal">
 							<i class="fas fa-plus"></i>
-						</button> <jsp:include page="/main/addUrlModal.jsp" />
+						</button> <jsp:include page="/mark/addUrlModal.jsp" />
 					</li>
 				</ul>
 			</c:otherwise>
@@ -230,8 +237,7 @@
 	</script>
 
 	<!-- /contents -->
-
-	<jsp:include page="/main/markBottom.jsp"></jsp:include>
+	<%@ include file="/mark/markBottom.jsp" %>
 
 </body>
 </html>

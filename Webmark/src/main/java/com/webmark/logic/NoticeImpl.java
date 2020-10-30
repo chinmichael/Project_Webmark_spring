@@ -1,6 +1,7 @@
 package com.webmark.logic;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -22,15 +23,7 @@ public class NoticeImpl implements Notice {
 		list = dao.getNoticePagingList(vo);
 		return list;
 	}
-
-	public HashMap<String, Object> getPagingCnt(NoticePagingVO vo) {
-		HashMap<String, Object> noticePagingListCnt = new HashMap<String, Object>();
-		Long totalPage = dao.getNoticePagingListCnt(vo);
-		if(totalPage == null) totalPage = (long) 0;
-		vo.setTotalPage(totalPage);
-		noticePagingListCnt.put("totalPage", totalPage); // 참고한 블로거가 이걸 도대체 왜 한거지...
-		return noticePagingListCnt;
-	}
+	
 
 	public List<NoticeVO> getSearchPaging(NoticePagingVO vo, boolean searchType) {
 		List<NoticeVO> list = new Vector<NoticeVO>();
@@ -40,21 +33,6 @@ public class NoticeImpl implements Notice {
 			list = dao.getSearchNoticeByNamePaging(vo);
 		}
 		return list;
-	}
-
-	public HashMap<String, Object> getSearchCnt(NoticePagingVO vo, boolean searchType) {
-		HashMap<String, Object> searchNoticePagingCnt = new HashMap<String, Object>();
-		Long totalPage;
-		if(searchType) {
-			totalPage = dao.getSearchNoticeByTitlePagingCnt(vo);
-		} else {
-			totalPage = dao.getSearchNoticeByNamePagingCnt(vo);
-		}
-		if(totalPage == null) totalPage = (long) 0;
-		vo.setTotalPage(totalPage);
-		searchNoticePagingCnt.put("totalPage", totalPage); // 참고한 블로거가 이걸 도대체 왜 한거지...
-		
-		return searchNoticePagingCnt;
 	}
 
 	public NoticeVO getContents(long notice_num) {
