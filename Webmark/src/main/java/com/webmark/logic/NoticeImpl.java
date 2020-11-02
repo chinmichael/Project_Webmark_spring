@@ -23,9 +23,9 @@ public class NoticeImpl implements Notice {
 	}
 	
 
-	public List<NoticeVO> getSearchPaging(NoticePagingVO vo, boolean searchType) {
+	public List<NoticeVO> getSearchPaging(NoticePagingVO vo) {
 		List<NoticeVO> list = new Vector<NoticeVO>();
-		if(searchType) {
+		if(vo.isSearchType()) {
 			list = dao.getSearchNoticeByTitlePaging(vo);
 		} else {
 			list = dao.getSearchNoticeByNamePaging(vo);
@@ -37,12 +37,12 @@ public class NoticeImpl implements Notice {
 		return dao.getNoticeContents(notice_num);
 	}
 
-	public Integer add(NoticeVO vo) {
+	public Integer add(NoticeVO vo, boolean flg) {
 		Integer result = 0;
-		if(vo.getNotice_attach() == null || vo.getNotice_attach().isEmpty()) {
-			result = dao.addNotice(vo);
-		} else {
+		if(flg) {
 			result = dao.addNoticeWithAttach(vo);
+		} else {
+			result = dao.addNotice(vo);
 		}
 		return result;
 	}

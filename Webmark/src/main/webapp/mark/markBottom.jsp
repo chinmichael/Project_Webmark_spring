@@ -12,7 +12,7 @@
 		<script type = "text/javascript">
 			window.onload = function() {
 				alert("There is no login information.");
-				location.href="/Webmark/account/loginForm.jsp";
+				location.href="/Webmark/home/loginForm.html";
 			};
 		</script>
 		

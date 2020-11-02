@@ -62,6 +62,6 @@
 		
 	</main>
 		</div>
-		<jsp:include page="/mark/markBottom.jsp"></jsp:include>
+		<%@ include file="/mark/markBottom.jsp" %>
 </body>
 </html>

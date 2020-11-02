@@ -84,7 +84,7 @@
 </select>
 
 <select id="getNoticePagingListCnt" parameterType="com.webmark.model.NoticePagingVO" resultType="Long">
-	select count(*), ceil(count(*)/#{rows}) totalPage from notice order by notice_num desc
+	select ceil(count(*)/#{rows}) totalPage from notice order by notice_num desc
 </select>
 
 <select id="getSearchNoticeByNamePaging" parameterType="com.webmark.model.NoticePagingVO" resultType="com.webmark.model.NoticeVO">
@@ -106,13 +106,13 @@
 </select>
 
 <select id="getSearchNoticeByNamePagingCnt" parameterType="com.webmark.model.NoticePagingVO" resultType="Long">
-	select count(*), ceil(count(*)/#{rows}) totalPage
+	select ceil(count(*)/#{rows}) totalPage
 	from notice
 	where user_id like #{searchName} order by notice_num desc
 </select>
 
 <select id="getSearchNoticeByTitlePagingCnt" parameterType="com.webmark.model.NoticePagingVO" resultType="Long">
-	select count(*), ceil(count(*)/#{rows}) totalPage
+	select ceil(count(*)/#{rows}) totalPage
 	from notice
 	where notice_title like #{searchName} order by notice_num desc
 </select>

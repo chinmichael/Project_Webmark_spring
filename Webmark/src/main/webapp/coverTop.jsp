@@ -86,7 +86,7 @@ footer {
 								aria-labelledby="navbarDropdownMenuLink">
 								<a class="dropdown-item" href="/account/accountInfo.jsp">Account</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="/WebmarkServlet?command=logout">Logout</a>
+								<a class="dropdown-item" href="/Webmark/account/logout.html">Logout</a>
 							</div></li>
 
 					</c:when>

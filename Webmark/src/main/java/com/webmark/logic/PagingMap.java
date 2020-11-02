@@ -4,9 +4,9 @@ import java.util.HashMap;
 
 import com.webmark.model.CommPagingVO;
 
-abstract public class Paging {
+abstract public class PagingMap {
 	public abstract HashMap<String, Object> getPagingCnt (CommPagingVO vo);
-	public abstract HashMap<String, Object> getSearchCnt(CommPagingVO vo, boolean searchType);
+	public abstract HashMap<String, Object> getSearchCnt(CommPagingVO vo);
 	
 	public HashMap<String, Object> getResMap(CommPagingVO vo, HashMap<String, Object> listCnt) {
 		HashMap<String, Object> resMap = new HashMap<String, Object>();

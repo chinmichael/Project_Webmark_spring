@@ -8,10 +8,10 @@ import com.webmark.model.NoticeVO;
 public interface Notice {
 	
 	public List<NoticeVO> getPagingList (NoticePagingVO vo);
-	public List<NoticeVO> getSearchPaging (NoticePagingVO vo, boolean searchType);
+	public List<NoticeVO> getSearchPaging (NoticePagingVO vo);
 	
 	public NoticeVO getContents (long notice_num);
-	public Integer add(NoticeVO vo);
+	public Integer add(NoticeVO vo, boolean flg);
 	public Integer edit(NoticeVO vo);
 	public Integer delete(long notice_num);
 }

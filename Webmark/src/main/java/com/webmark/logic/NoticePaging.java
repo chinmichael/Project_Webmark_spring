@@ -10,7 +10,7 @@ import com.webmark.model.CommPagingVO;
 import com.webmark.model.NoticePagingVO;
 
 @Service
-public class NoticePaging extends Paging {
+public class NoticePaging extends PagingMap {
 	
 	@Autowired
 	WebmarkDAO dao;
@@ -30,12 +30,12 @@ public class NoticePaging extends Paging {
 		return noticePagingListCnt;
 	}
 
-	public HashMap<String, Object> getSearchCnt(CommPagingVO vo, boolean searchType) {
+	public HashMap<String, Object> getSearchCnt(CommPagingVO vo) {
 		NoticePagingVO tc = (NoticePagingVO) vo;
 		
 		HashMap<String, Object> searchNoticePagingCnt = new HashMap<String, Object>();
 		Long totalPage;
-		if(searchType) {
+		if(tc.isSearchType()) {
 			totalPage = dao.getSearchNoticeByTitlePagingCnt(tc);
 		} else {
 			totalPage = dao.getSearchNoticeByNamePagingCnt(tc);

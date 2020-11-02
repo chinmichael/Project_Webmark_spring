@@ -74,30 +74,46 @@
 					</div>
 				</div>
 
+			<c:choose>
+				<c:when test="${not empty searchName }">
+					<button type="button" class="btn btn-light float-right"
+						style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
+						onclick="location.href='/Webmark/WebmarkServlet?command=notice_edit_ready&notice_num=${noticeCon.getNotice_num()}'">
+						<i class="fas fa-edit"></i>
+					</button>
 
-				<button type="button" class="btn btn-light float-right"
-					style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
-					onclick = "location.href='/Webmark/WebmarkServlet?command=notice_edit_ready&notice_num=${noticeCon.getNotice_num()}'">
-					<i class="fas fa-edit"></i>
-				</button>
+					<button type="button" class="btn btn-light float-right"
+						style="box-shadow: none; font-weight: none;"
+						onclick="location.href='/Webmark/notice/noticeSearch.html?page=${currentPage}&searchName=${searchName}&searchType=${searchType }'">
+						<i class="fas fa-list"></i>
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-light float-right"
+						style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
+						onclick="location.href='/Webmark/WebmarkServlet?command=notice_edit_ready&notice_num=${noticeCon.getNotice_num()}'">
+						<i class="fas fa-edit"></i>
+					</button>
 
-				<button type="button" class="btn btn-light float-right"
-					style="box-shadow: none; font-weight: none;"
-					onclick = "location.href='/Webmark/WebmarkServlet?command=notice_list'">
-					<i class="fas fa-list"></i>
-				</button>
+					<button type="button" class="btn btn-light float-right"
+						style="box-shadow: none; font-weight: none;"
+						onclick="location.href='/Webmark/notice/noticeList.html?page=${currentPage}'">
+						<i class="fas fa-list"></i>
+					</button>
+				</c:otherwise>
+			</c:choose>
 
-			</c:when>
+		</c:when>
 			<c:otherwise>
 				<button type="button" class="btn btn-light float-right"
 					style="box-shadow: none; font-weight: none;"
-					onclick = "location.href='/Webmark/WebmarkServlet?command=notice_list'">
+					onclick = "location.href='javascript:history.back()'">
 					<i class="fas fa-list"></i>&nbsp; List
 				</button>
 			</c:otherwise>
 		</c:choose>
 	</main>
 		</div>
-		<jsp:include page="/mark/markBottom.jsp"></jsp:include>
+		<%@ include file="/mark/markBottom.jsp" %>
 </body>
 </html>
