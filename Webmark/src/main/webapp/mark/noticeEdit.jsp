@@ -9,11 +9,13 @@
 
 		<%--notice form --%>
 		<form name = "noticeEFrm" id = "noticeEFrm" method = "post" enctype = "multipart/form-data"
-			action = "/Webmark/WebmarkServlet?command=notice_edit">
-		<input type = "hidden" name = "noticeNumEdit" value = "${noticeCon.getNotice_num() }">
+			action = "/Webmark/notice/noticeEdit.html">
+		<input type="hidden" name="noticeNumEdit" value="${noticeCon.getNotice_num() }">
+		<input type="hidden" name="currentPage" value="${currentPage }">
+		<input type="hidden" name="searchName" value="${searchName }">
+		<input type="hidden" name="searchType" value="${searchType }"> 
 
 			<table class="table table-bordered">
-				
 					<tr>
 						<th scope="col" class="table-active" style = "width:8.33%; text-align: center;" >Title</th>
 						<th scope="col" style = "width:50%; padding: 8px">
@@ -71,11 +73,22 @@
 					
 				
 			</table>
-			<button type="button" class="btn btn-light float-right"
-					style="box-shadow: none; font-weight: none;"
-					onclick = "location.href='/Webmark/WebmarkServlet?command=notice_list'">
-					<i class="fas fa-list"></i>&nbsp; List
-			</button>
+			<c:choose>
+				<c:when test="${not empty searchName }">
+					<button type="button" class="btn btn-light float-right"
+						style="box-shadow: none; font-weight: none;"
+						onclick = "location.href='/Webmark/notice/noticeSearch.html?page=${currentPage}&searchName=${searchName}&searchType=${searchType }'">
+						<i class="fas fa-list"></i>&nbsp; List
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button type="button" class="btn btn-light float-right"
+						style="box-shadow: none; font-weight: none;"
+						onclick = "location.href='/Webmark/notice/noticeList.html?page=${currentPage}'">
+						<i class="fas fa-list"></i>&nbsp; List
+					</button>
+				</c:otherwise>
+			</c:choose>
 			<button type="button" class="btn btn-light float-right"
 					style="box-shadow: none; font-weight: none; margin-right:10px"
 					id = "noticeEditBtn">
@@ -85,7 +98,7 @@
 		
 		
 	</main>
-		</div>
-		<jsp:include page="/mark/markBottom.jsp"></jsp:include>
+	</div>
+	<%@ include file="/mark/markBottom.jsp" %>
 </body>
 </html>

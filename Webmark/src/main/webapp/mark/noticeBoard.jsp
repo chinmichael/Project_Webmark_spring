@@ -1,3 +1,5 @@
+<%--https://offbyone.tistory.com/326 개행 적용 팁 : <pre>나 white-space 스타일 추천 --%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -20,7 +22,7 @@
 					</tr>
 
 					<tr>
-						<td colspan = "2" style = "padding-top: 20px; padding-bottom : 20px;">${noticeCon.getNotice_contents() }</td>
+						<td colspan = "2" style = "padding-top: 20px; padding-bottom : 20px; white-space:pre;">${noticeCon.getNotice_contents() }</td>
 					</tr>
 					<tr>
 						
@@ -64,8 +66,11 @@
 								<button type="button" class="btn btn-secondary"
 									data-dismiss="modal" style="box-shadow: none;">Close</button>
 								<form name="delNoticeFrm" method="post"
-									action="/Webmark/WebmarkServlet?command=notice_delete">
-									<input type="hidden" name="notice_num" value="${noticeCon.getNotice_num()}">
+									action="/Webmark/notice/noticeDel.html">
+									<input type="hidden" name="noticeNum" value="${noticeCon.getNotice_num()}">
+									<input type="hidden" name="page" value="${currentPage}">
+									<input type="hidden" name="searchName" value="${searchName}">
+									<input type="hidden" name="searchType" value="${searchType}">
 									<input type="submit" class="btn btn-danger"
 										style="box-shadow: none;" value="Delete">
 								</form>
@@ -73,37 +78,42 @@
 						</div>
 					</div>
 				</div>
+			
+				
+				<%-- 편집가능 관리자 : 리스트 시 서칭이냐 아니냐에 따라 편집 후에도 적절한 뒤로가기 필요 --%>
+				<c:choose>
+					<c:when test="${not empty searchName }">			
+						<button type="button" class="btn btn-light float-right"
+							style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
+							onclick="location.href='/Webmark/notice/noticeEditReady.html?noticeNum=${noticeCon.getNotice_num()}&page=${currentPage}&searchName=${searchName}&searchType=${searchType}'">
+							<i class="fas fa-edit"></i>
+						</button>
+					
+						<button type="button" class="btn btn-light float-right"
+							style="box-shadow: none; font-weight: none;"
+							onclick="location.href='/Webmark/notice/noticeSearch.html?page=${currentPage}&searchName=${searchName}&searchType=${searchType }'">
+							<i class="fas fa-list"></i>
+						</button>
+					</c:when>
+					
+					<c:otherwise>
+						<button type="button" class="btn btn-light float-right"
+							style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
+							onclick="location.href='/Webmark/notice/noticeEditReady.html?noticeNum=${noticeCon.getNotice_num()}&page=${currentPage}'">
+							<i class="fas fa-edit"></i>
+						</button>
 
-			<c:choose>
-				<c:when test="${not empty searchName }">
-					<button type="button" class="btn btn-light float-right"
-						style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
-						onclick="location.href='/Webmark/WebmarkServlet?command=notice_edit_ready&notice_num=${noticeCon.getNotice_num()}'">
-						<i class="fas fa-edit"></i>
-					</button>
+						<button type="button" class="btn btn-light float-right"
+							style="box-shadow: none; font-weight: none;"
+							onclick="location.href='/Webmark/notice/noticeList.html?page=${currentPage}'">
+							<i class="fas fa-list"></i>
+						</button>
+					</c:otherwise>
+				</c:choose>
 
-					<button type="button" class="btn btn-light float-right"
-						style="box-shadow: none; font-weight: none;"
-						onclick="location.href='/Webmark/notice/noticeSearch.html?page=${currentPage}&searchName=${searchName}&searchType=${searchType }'">
-						<i class="fas fa-list"></i>
-					</button>
-				</c:when>
-				<c:otherwise>
-					<button type="button" class="btn btn-light float-right"
-						style="box-shadow: none; font-weight: none; margin-left: 5px; margin-right: 5px;"
-						onclick="location.href='/Webmark/WebmarkServlet?command=notice_edit_ready&notice_num=${noticeCon.getNotice_num()}'">
-						<i class="fas fa-edit"></i>
-					</button>
-
-					<button type="button" class="btn btn-light float-right"
-						style="box-shadow: none; font-weight: none;"
-						onclick="location.href='/Webmark/notice/noticeList.html?page=${currentPage}'">
-						<i class="fas fa-list"></i>
-					</button>
-				</c:otherwise>
-			</c:choose>
-
-		</c:when>
+			</c:when>
+			
+			<%-- 편집불가 일반 사용자 : 그냥 뒤로가기 하면 됨 --%>
 			<c:otherwise>
 				<button type="button" class="btn btn-light float-right"
 					style="box-shadow: none; font-weight: none;"

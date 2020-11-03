@@ -17,7 +17,7 @@
 					</button>
 				</div>
 				<form id="AddCatFrm" name="AddCatFrm" method="post"
-					action="/Webmark/WebmarkServlet?command=add_category">
+					action="/Webmark/category/addCategory.html">
 					<div class="modal-body" style="height: 130px;">
 						<label for="addCategoryName" class="col-form-label">Category
 							Name:</label> <input type="text" class="form-control"

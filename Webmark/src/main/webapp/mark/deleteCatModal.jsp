@@ -21,7 +21,7 @@
 					</button>
 				</div>
 				<form id="DelCatFrm" name="DelCatFrm" method="post"
-					action="/Webmark/WebmarkServlet?command=delete_category">
+					action="/Webmark/category/delCategory.html">
 					<div class="modal-body" style="height: 70px;">
 
 						<div class="input-group mb-3">

@@ -12,7 +12,7 @@
 
 		<%--notice form --%>
 		<form name = "noticeWFrm" id = "noticeWFrm" method = "post" enctype = "multipart/form-data"
-			action = "/Webmark/WebmarkServlet?command=notice_write">
+			action = "/Webmark/notice/noticeWrite.html">
 
 			<table class="table table-bordered">
 				
@@ -49,7 +49,7 @@
 			</table>
 			<button type="button" class="btn btn-light float-right"
 					style="box-shadow: none; font-weight: none;"
-					onclick = "location.href='/Webmark/WebmarkServlet?command=notice_list'">
+					onclick = "location.href='javascript:history.back()'">
 					<i class="fas fa-list"></i>&nbsp; List
 			</button>
 			<button type="button" class="btn btn-light float-right"

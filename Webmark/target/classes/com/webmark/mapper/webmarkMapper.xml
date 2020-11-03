@@ -135,7 +135,7 @@
 </insert>
 
 <update id="editNotice" parameterType="com.webmark.model.NoticeVO">
-	update notice set user_id = #{userid}, notice_title = #{noitce_title}, notice_contents = #{notice_contents}, write_date = sysdate, notice_attach = #{notice_attach}
+	update notice set user_id = #{userid}, notice_title = #{notice_title}, notice_contents = #{notice_contents}, write_date = sysdate, notice_attach = #{notice_attach}
 	where notice_num = #{notice_num}
 </update>
 

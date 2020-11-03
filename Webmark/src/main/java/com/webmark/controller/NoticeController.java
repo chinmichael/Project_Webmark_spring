@@ -1,5 +1,6 @@
 package com.webmark.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,7 @@ public class NoticeController {
 		mav.addObject("pagingList", list);
 		mav.addObject("resMap", resMap);
 		mav.addObject("currentPage", page);
+		
 		return mav;
 	}
 	
@@ -80,7 +82,7 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice/noticeContents.html")
-	public ModelAndView noticeContents (Long noticeNum, Long currentPage, String searchName, Integer searchType) {
+	public ModelAndView noticeContents (Long noticeNum, Long currentPage, String searchName, Integer searchType, String message) {
 		ModelAndView mav = new ModelAndView("mark/noticeBoard");
 		NoticeVO vo = notice.getContents(noticeNum);
 		mav.addObject("noticeCon", vo);
@@ -89,6 +91,10 @@ public class NoticeController {
 		if(searchName != null) {
 			mav.addObject("searchName", searchName);
 			mav.addObject("searchType", searchType);
+		}
+		
+		if(message != null) {
+			mav.addObject("message", message);
 		}
 		
 		return mav;
@@ -114,22 +120,94 @@ public class NoticeController {
 		}
 		
 		Integer result = notice.add(vo, flg);
-		ModelAndView mav = new ModelAndView("redirect:/");
+		ModelAndView mav = new ModelAndView("redirect:/notice/noticeList.html");
 		
 		if(result != 1) {
-			
+			mav.addObject("message", "Input Error");
 		}
 		
-		return null;
+		return mav;
+	}
+	
+	@RequestMapping(value="/notice/noticeEditReady.html")
+	public ModelAndView noticeEditReady(Long noticeNum, Long page, String searchName, Integer searchType) {
+		ModelAndView mav = new ModelAndView("mark/noticeEdit");
+		
+		mav.addObject("currentPage", page);
+		if(searchName != null) {
+			mav.addObject("searchName", searchName);
+			mav.addObject("searchType", searchType);
+		}
+		NoticeVO vo = notice.getContents(noticeNum);
+		mav.addObject("noticeCon", vo);
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/notice/noticeEdit.html")
-	public ModelAndView noticeEdit() {
-		return null;
+	public ModelAndView noticeEdit(HttpServletRequest request) throws IOException {		
+		String uploadPath = "C:\\webmark\\upload\\notice";
+		int size = 10 * 1024 * 1024;
+		
+		MultipartRequest multi = new MultipartRequest(request, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
+		
+		NoticeVO vo = new NoticeVO();
+		vo.setNotice_num(Long.parseLong(multi.getParameter("noticeNumEdit")));
+		vo.setUserid(multi.getParameter("noticeWriterE"));
+		vo.setNotice_title(multi.getParameter("noticeTitleE"));
+		vo.setNotice_contents(multi.getParameter("noticeContentsE"));
+		
+		if(multi.getParameter("noticeAttachFlg").equals("true")) {
+			if(multi.getParameter("noticeBeforeAttach") != null) {
+				String savedPath = "C:\\webmark\\upload\\notice";
+				String filename = multi.getParameter("noticeBeforeAttach");
+				String path = savedPath.trim() + "//" + filename.trim();
+				File file = new File(path);
+				if(file.exists()) {
+					file.delete();
+				}
+			}
+			
+			if(multi.getFilesystemName("noticeAttachE") != null) {
+				String attach = multi.getFilesystemName("noticeAttachE");
+				vo.setNotice_attach(attach);
+			}
+		} else {
+			vo.setNotice_attach(multi.getParameter("noticeBeforeAttach"));
+		}
+		
+		ModelAndView mav = new ModelAndView("redirect:/notice/noticeContents.html");
+		
+		if(!multi.getParameter("searchName").isEmpty()) {
+			mav.addObject("searchName", multi.getParameter("searchName"));
+			mav.addObject("searchType", multi.getParameter("searchType"));
+		}
+		mav.addObject("currentPage", multi.getParameter("currentPage"));
+		Integer result = notice.edit(vo);
+		if(result != 1) {
+			mav.addObject("message", "Update Error");
+		}
+		
+		mav.addObject("noticeNum", vo.getNotice_num());
+		
+		return mav;
 	}
 	
 	@RequestMapping(value="/notice/noticeDel.html")
-	public ModelAndView noticeDel() {
-		return null;
+	public ModelAndView noticeDel(HttpServletRequest request) {
+		ModelAndView mav = null;
+		
+		if(!request.getParameter("searchName").isEmpty()) {
+			mav = new ModelAndView("redirect:/notice/noticeSearch.html");
+			mav.addObject("searchName", request.getParameter("searchName"));
+			mav.addObject("searchType", request.getParameter("searchType"));
+		} else {
+			mav = new ModelAndView("redirect:/notice/noticeList.html");
+		}
+		mav.addObject("page", request.getParameter("page"));
+		
+		notice.delete(Long.parseLong(request.getParameter("noticeNum")));
+		
+		return mav;
 	}
 }
