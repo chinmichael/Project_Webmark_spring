@@ -52,6 +52,9 @@
 		</property>	
 	</bean>
 	
+	<!-- 아이디 비번 인증을 통한 자바메일 관련 -->
+	
+	
 	<context:annotation-config>
 		<bean id="noticePaging" class="com.webmark.logic.NoticePaging"></bean>
 	</context:annotation-config>

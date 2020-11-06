@@ -28,7 +28,7 @@
 				<c:otherwise>
 					<hr class="my-4">
 					<p>Have a good day!!</p>
-					<a class="btn btn-dark btn-lg" href="/Webmark/main/markList.jsp" role="button">Go Webgalpi List!!</a>
+					<a class="btn btn-dark btn-lg" href="/Webmark/mark/markList.jsp" role="button">Go Webmark List!!</a>
 
 				</c:otherwise>
 			</c:choose>

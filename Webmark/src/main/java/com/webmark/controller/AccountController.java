@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.webmark.logic.Account;
 import com.webmark.logic.Category;
+import com.webmark.model.AccountRegVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
 
@@ -58,6 +59,70 @@ public class AccountController {
 		ModelAndView mav = new ModelAndView("account/loginForm");
 		session.invalidate();
 		mav.addObject(new AccountVO());
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/join.html")
+	public ModelAndView join (@Valid @ModelAttribute AccountRegVO reg, BindingResult br, HttpSession session) {
+		ModelAndView mav = new ModelAndView("account/joinForm");
+		if(br.hasErrors()) {
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+		
+		Integer overlayCheck = account.checkIdAndEmail(reg); // 0 = 중복 없음 , 1 = 아이디 중복, 2 = 메일 중복, 3 = 둘다 중복
+		switch(overlayCheck) {
+		case 1:
+			mav.addObject("duplicationId", "error");
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		case 2:
+			mav.addObject("duplicationMail", "error");
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		case 3:
+			mav.addObject("duplicationId", "error");
+			mav.addObject("duplicationMail", "error");
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+		
+		if(!reg.getConfirm().equals(reg.getUserpw())) {
+			mav.addObject("confirmError", "error");
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+		String pw = reg.getUserpw();
+		Integer result = account.joinNewAccount(reg);
+		if(result == 1) {
+			mav = new ModelAndView("redirect:/mark/markList.jsp");
+			AccountVO user = new AccountVO();
+			user.setUserid(reg.getUserid());
+			user.setUserpw(pw);
+			AccountVO login = account.login(user);
+			session.setAttribute("account", login);
+			List<CategoryVO> list = category.getList(login.getUserid());
+			session.setAttribute("categoryList", list);
+			session.setMaxInactiveInterval(24*60*60);
+			return mav;
+			
+		} else {
+			mav.addObject("message", "Join Error occured");
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+	}
+	
+	@RequestMapping(value="/account/findByMail")
+	public ModelAndView findByMail (String email) {
+		ModelAndView mav = new ModelAndView("account/sendFindMailForm");
+		if(email.isEmpty()) {
+			mav.addObject("mailError", "Please input your e-mail");
+			return mav;
+		}
+		
+		mav = new ModelAndView("account/resetPassForm");
+		mav.addObject(new AccountRegVO());
 		return mav;
 	}
 }

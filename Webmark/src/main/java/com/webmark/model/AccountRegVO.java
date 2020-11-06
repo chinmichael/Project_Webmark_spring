@@ -1,16 +1,27 @@
 package com.webmark.model;
 
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class AccountVO {
+public class AccountRegVO {
 	
-	@NotEmpty(message="Please put in your ID")
+	@Pattern(regexp="[A-Za-z\\d]{5,20}$",
+			message="Only 5~20 English lowercase letters and numbers are available")
 	private String userid;
-	@NotEmpty(message="Please put in your Password")
+	@Pattern(regexp="(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$",
+			message="Please use 8~16 English letters, numbers and special characters") // https://code.i-harness.com/ko-kr/q/12b269e
 	private String userpw;
 	private String salt;
+	@NotEmpty(message="Please check passowrd")
+	private String confirm;
+	@NotEmpty(message="Please input your name")
 	private String username;
+	@NotEmpty(message="Please input your nickname")
 	private String usernick;
+	@NotEmpty(message="Please input your e-mail")
+	@Email(message="This e-mail form is not available")
 	private String email;
 	private String usertype;
 	private String createdate;
@@ -32,6 +43,12 @@ public class AccountVO {
 	}
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+	public String getConfirm() {
+		return confirm;
+	}
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
 	}
 	public String getUsername() {
 		return username;
@@ -63,7 +80,6 @@ public class AccountVO {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
 	
 	
 }

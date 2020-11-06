@@ -47,7 +47,7 @@ footer {
 
 <!-- navigation -->
 	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-		<a class="navbar-brand" href="/Webmark/tempCover.jsp"><i class="far fa-bookmark"></i>&nbsp;&nbsp;Webgalpi</a>
+		<a class="navbar-brand" href="/Webmark/cover.jsp"><i class="far fa-bookmark"></i>&nbsp;&nbsp;Webmark</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarTogglerDemo02"
 			aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -58,10 +58,10 @@ footer {
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<c:if test = "${not empty account }">
-				<li class="nav-item"><a class="nav-link" href="/Webmark/main/markList.jsp">List
+				<li class="nav-item"><a class="nav-link" href="/Webmark/mark/markList.jsp">List
 						 <span class="sr-only">(current)</span> 
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
+				<li class="nav-item"><a class="nav-link" href=#>Community</a></li>
 				</c:if>
 			</ul>
 
@@ -70,7 +70,7 @@ footer {
 					<c:when test="${not empty account }">
 
 						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#"
+							class="nav-link dropdown-toggle" href=#
 							id="navbarDropdownMenuLink" role="button"
 							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 
@@ -88,13 +88,13 @@ footer {
 								<a class="dropdown-item" href="/Webmark/account/AccountModify.jsp">Account</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item"
-									href="/Webmark/WebmarkServlet?command=logout">Logout</a>
+									href="/Webmark/account/logout.html">Logout</a>
 							</div></li>
 
 					</c:when>
 					<c:otherwise>
 
-						<li class="nav-item"><a class="nav-link" href="/Webmark/login/Login.jsp"><i
+						<li class="nav-item"><a class="nav-link" href="/Webmark/account/login.html"><i
 								class="fas fa-user-check"></i> &nbsp; Sign-in &nbsp; </a></li>
 
 					</c:otherwise>

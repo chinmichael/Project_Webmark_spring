@@ -90,13 +90,15 @@ background-color: #EDF1F4;
 			</ul>
 			
 
-			<form class="form-inline my-1 my-lg-0"
+			<form class="form-inline my-1 my-lg-0" onsubmit="return searchUrlCheck(this)"
 				method = "post" action = "/Webmark/url/searchUrl.html">
 				<div class="form-group mb-0">
-					<input class="form-control mr-sm-1" type="text" name = "urlSearch" placeholder="Search" style = "height: calc(1.5em + 0.75rem - 5px); box-shadow:none;">
+					<input class="form-control mr-sm-1" type="text" name="urlSearch" id="urlSearch" placeholder="Search"
+					style = "height: calc(1.5em + 0.75rem - 5px); box-shadow:none;">
 				</div>
 				<div class="form-group mx-sm-0 mb-0">&nbsp;
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style = "height: calc(1.5em + 0.75rem - 3px); line-height: 0; box-shadow:none;">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+					style = "height: calc(1.5em + 0.75rem - 3.5px); line-height: 0; box-shadow:none;">
 						<i class="fas fa-search-location"></i>
 					</button></div>
 			</form>
@@ -127,7 +129,7 @@ background-color: #EDF1F4;
 								<li class="nav-item">
 									<a class="nav-link" href="/Webmark/notice/noticeList.html">
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="fas fa-bullhorn"></i>&nbsp;Noitce
+										<i class="fas fa-bullhorn"></i>&nbsp;&nbsp;Noitce
 									</a>
 								</li>
 								<!-- add category menu -->
@@ -137,7 +139,7 @@ background-color: #EDF1F4;
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<i class="fas fa-plus-circle"></i>&nbsp; Add New Category
 									</a>
-									<jsp:include page="/mark/addCatModal.jsp" />
+									<%@ include file="/mark/addCatModal.jsp" %>
 								</li>
 
 								<!-- delete category menu -->
@@ -147,7 +149,7 @@ background-color: #EDF1F4;
 										&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 										<i class="fas fa-minus-circle"></i>&nbsp; Delete Category
 									</a>
-									<jsp:include page="/mark/deleteCatModal.jsp" />
+									<%@ include file="/mark/deleteCatModal.jsp" %>
 								</li>
 									
 									
@@ -158,7 +160,7 @@ background-color: #EDF1F4;
 										<a class="nav-link"
 										href="/Webmark/url/urlList.html?cat_no=${category.cat_no }">
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-											<i class="fas fa-folder"></i>&nbsp;${category.cat_name}
+											<i class="fas fa-folder"></i>&nbsp;&nbsp;${category.cat_name}
 										</a>
 									</li>
 								</c:forEach>

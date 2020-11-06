@@ -30,18 +30,17 @@ public class CategoryController {
 		ModelAndView mav = null;
 		
 		AccountVO user = (AccountVO) session.getAttribute("account");
-		String userid = user.getUserid();
 		String cat_name = request.getParameter("addCategoryName");
 		
 		CategoryVO vo = new CategoryVO();
-		vo.setUserid(userid);
+		vo.setUserid(user.getUserid());
 		vo.setCat_name(cat_name);
 		
 		Long result = category.add(vo);
 		if(result != -1) {
 			mav = new ModelAndView("redirect:/url/urlList.html");
 			session.removeAttribute("categoryList");
-			List<CategoryVO> list = category.getList(userid);
+			List<CategoryVO> list = category.getList(user.getUserid());
 			session.setAttribute("categoryList", list);
 			mav.addObject("cat_no", result);
 			
@@ -54,7 +53,18 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value="/category/delCategory.html")
-	public ModelAndView delCategory(HttpSession session, HttpServletRequest request) {
-		return null;
+	public ModelAndView delCategory(HttpSession session, Long delCategoryGroup) {
+		ModelAndView mav = new ModelAndView("redirect:/mark/markList.jsp");
+		Integer result = category.delete(delCategoryGroup);
+		if(result != 1) {
+			mav.addObject("message", "Delete Error");
+		} 
+		
+		session.removeAttribute("categoryList");
+		AccountVO user = (AccountVO) session.getAttribute("account");
+		List<CategoryVO> list = category.getList(user.getUserid());
+		session.setAttribute("categoryList", list);
+		
+		return mav;
 	}
 }

@@ -2,6 +2,7 @@ package com.webmark.dao;
 
 import java.util.List;
 
+import com.webmark.model.AccountRegVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
 import com.webmark.model.NoticePagingVO;
@@ -12,8 +13,18 @@ import com.webmark.model.UrlVO;
 public interface WebmarkDAO {
 	
 	// 로그인 관련
-	public AccountVO loginById (AccountVO vo);
-	public AccountVO loginByEmail (AccountVO vo);
+	public AccountVO getLogin (String userid);
+	public String findPass (String userid);
+	public String findSalt (String userid);
+	
+	// 회원등록, 회원정보 변경 관련
+	public String checkId (String userid);
+	public Integer joinAccount (AccountRegVO vo);
+	public Integer addSalt(AccountRegVO vo);
+	public String checkEmail (String email);
+	public Integer changeAccountInfo (AccountRegVO vo);
+	public Integer changeToAdmin (String userid);
+	public Integer deleteAccount (String userid);
 	
 	// 카테고리, URL 조회 관련
 	public String categoryCheckId (long cat_no);

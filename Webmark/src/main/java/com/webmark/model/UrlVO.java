@@ -9,12 +9,19 @@ public class UrlVO {
 	private String tag;
 	
 	private long cat_no;
+	private long cat_check;
 	
 	public long getCat_no() {
 		return cat_no;
 	}
 	public void setCat_no(long cat_no) {
 		this.cat_no = cat_no;
+	}
+	public long getCat_check() {
+		return cat_check;
+	}
+	public void setCat_check(long cat_check) {
+		this.cat_check = cat_check;
 	}
 	
 	

@@ -5,7 +5,7 @@
 
 <!-- footer & bootstrap js -->
 <footer>
-	<h4 align="center" style="font-size: 15pt;">© Team Webggalpi</h4>
+	<h4 align="center" style="font-size: 15pt;">© LemonCookie</h4>
 </footer>
 </div>
 <script

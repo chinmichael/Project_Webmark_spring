@@ -90,14 +90,10 @@ $(document).ready(function(){
 			return;
 			}
 
-
-
 		if(check) {
 			$("#addUrlFrm").submit();
 		}
 	});
-
-
 
   $("#noticeWriteBtn").click(function(){
 
@@ -121,7 +117,6 @@ $(document).ready(function(){
 					check = false;
 					return;
 				}
-				
 			}
 
 		if(check) {
@@ -157,14 +152,10 @@ $(document).ready(function(){
 				
 			}
 		}	
-			
 
 		if(check) {
 			$("#noticeEFrm").submit();
 		}
-
 	});
-	
-
 
 });

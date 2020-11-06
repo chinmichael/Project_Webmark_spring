@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.webmark.model.AccountRegVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
 import com.webmark.model.NoticePagingVO;
@@ -21,14 +22,47 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 	private String mn = "com.webmark.mapper.webmarkMapper."; // mn = mapperName
 	
 	// 로그인 관련
-	public AccountVO loginById(AccountVO vo) {
-		return session.selectOne(mn + "loginById", vo);
-	}
-
-	public AccountVO loginByEmail(AccountVO vo) {
-		return session.selectOne(mn + "loginByEmail", vo);
+	public AccountVO getLogin(String userid) {
+		return session.selectOne(mn + "getLogin", userid);
 	}
 	
+	public String findPass (String userid) {
+		return session.selectOne(mn + "findPass", userid);
+	}
+	
+	public String findSalt (String userid) {
+		return session.selectOne(mn + "findSalt", userid);
+	}
+
+	// 회원등록, 회원정보 변경 관련
+	public String checkId(String userid) {
+		return session.selectOne(mn + "checkId", userid);
+	}
+
+	public String checkEmail(String email) {
+		return session.selectOne(mn + "checkEmail", email);
+	}
+
+	public Integer joinAccount(AccountRegVO vo) {
+		return session.insert(mn + "joinAccount", vo);
+	}
+	
+	public Integer addSalt(AccountRegVO vo) {
+		return session.insert(mn + "addSalt", vo);
+	}
+
+	public Integer changeAccountInfo(AccountRegVO vo) {
+		return session.update(mn + "changeAccountInfo", vo);
+	}
+
+	public Integer changeToAdmin(String userid) {
+		return session.update(mn + "changeToAdmin", userid);
+	}
+
+	public Integer deleteAccount(String userid) {
+		return session.delete(mn + "deleteAccount", userid);
+	}
+
 	// 카테고리, URL 조회 관련
 	public List<CategoryVO> getCategoryList(String userid) {
 		return session.selectList(mn + "getCategoryList", userid);

@@ -1,0 +1,40 @@
+
+INSERT INTO accountwm(user_id,user_pw,salt,user_name,user_nick,e_mail,user_type) VALUES ('chintemp','e2c2528942fc4ea33cf9bfe69f562491d4460ca58695153442abf0c30f91bddec1a198eaa791259961232d461dee4bd159415796b3307ffeee8a9e3e9d1caf50','crAZj3EDtlGm6n48WpcNZQ==','진형래','진실변호사','chintemp@kosea.com','1');
+INSERT INTO accountwm(user_id,user_pw,salt,user_name,user_nick,e_mail) VALUES ('mintemp','86948be79445283900f9a8f09ed7cd76aed24497d772c869ec56430136dbf76a563eda7ab8c7b1c0a268599575445c6db5b1deccadd96575f49fd2a311f93595','sqYTuJLFajotTEtz7u40sg==','이민규','임포스터','mintemp@kosea.com');
+INSERT INTO accountwm(user_id,user_pw,salt,user_name,user_nick,e_mail) VALUES ('hyuntemp','28e024f5afe7a8aa6dfe24f04aa707b32171b8114d02c26e0d8785bb091cfbf93d35ddf5081f70f06e3a1a6d44cdfbe71fb85701453a3948412089e4176443b6','TbGbMzg7ZNYDaTOxcHT6og==','이현호','어몽어스','hyuntemp@kosea.com');
+
+// 비밀번호는 위에서부터 temp1234! / temp4567! / temp8890!
+
+INSERT INTO saltwm VALUES ('chintemp','chintemp@kosea.com','crAZj3EDtlGm6n48WpcNZQ==');
+INSERT INTO saltwm VALUES ('mintemp','mintemp@kosea.com','sqYTuJLFajotTEtz7u40sg==');
+INSERT INTO saltwm VALUES ('hyuntemp','hyuntemp@kosea.com','TbGbMzg7ZNYDaTOxcHT6og==');
+
+INSERT INTO category VALUES (category_seq.NEXTVAL,'chintemp','검색엔진');
+INSERT INTO category VALUES (category_seq.NEXTVAL,'mintemp','검색엔진');
+INSERT INTO category VALUES (category_seq.NEXTVAL,'hyuntemp','검색엔진');
+INSERT INTO category VALUES (category_seq.NEXTVAL,'chintemp','블로그');
+INSERT INTO category VALUES (category_seq.NEXTVAL,'chintemp','야옹이');
+INSERT INTO category VALUES (category_seq.NEXTVAL,'mintemp','문제사이트');
+INSERT INTO category VALUES (category_seq.NEXTVAL,'hyuntemp','IT자료');
+
+
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,1,'https://www.naver.com/','네이버','1','#네이버');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,2,'https://www.naver.com/','네이버','1','#네이버');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,3,'https://www.naver.com/','네이버','1','#네이버');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,1,'https://www.google.co.kr/','구글','1','#구글');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,2,'https://www.google.co.kr/','구글','1','#구글');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,3,'https://www.daum.net/','다음인가카카오인가','1','#다음#카카오');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,4,'https://gmlwjd9405.github.io/2018/05/08/algorithm-merge-sort.html','정렬블로그','0','#정렬');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,4,'http://blog.naver.com/prologue/PrologueList.nhn?blogId=kks227','자료구조알고리즘','1','#자료구조#알고리즘');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,5,'http://www.nangmancat.com/','낭만고양이','1','#고양이#분양소');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,6,'http://www.jungol.co.kr/','정올','1','#문제사이트1');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,6,'https://www.acmicpc.net/','백준','0','#문제사이트2');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,7,'https://stackoverflow.com/','스택오버플로','0','#블로그로가자');
+INSERT INTO urlwm VALUES (urlwm_seq.NEXTVAL,7,'http://bootstrapk.com/','부트스트랩','1','#웹서식');
+
+INSERT INTO notice (notice_num,user_id,notice_title,notice_contents) VALUES (notice_seq.NEXTVAL,'chintemp','Welcome to Webggalpi','Welcome to Webggalpi site (ver1.0)');
+INSERT INTO notice (notice_num,user_id,notice_title,notice_contents) VALUES (notice_seq.NEXTVAL,'chintemp','Notice test 01','아 진짜 공지사항이나 게시판 내용까지 영어로 하는건 무리데스');
+
+COMMIT;
+
+

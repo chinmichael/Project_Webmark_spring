@@ -1,13 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>    
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+
 	<div class="modal fade" id="addURLModal" tabindex="-1"
 		aria-labelledby="addURLModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -20,7 +11,7 @@
 					</button>
 				</div>
 				<form name="addUrlFrm" id = "addUrlFrm" method="post"
-					action="/Webmark/WebmarkServlet?command=add_url">
+					action="/Webmark/url/addUrl.html">
 					<input type="hidden" name="cat_no" value="${cat_no }">
 					<div class="modal-body" style="height: 390px;">
 						<div class="form-group">
@@ -53,11 +44,9 @@
 						<button type="button" class="btn btn-secondary"
 							style="box-shadow: none;" data-dismiss="modal">Close</button>
 						<button type="button" class="btn btn-success"
-							style="box-shadow: none;" id = "addUrlBtn">Add</button>
+							style="box-shadow: none;" id ="addUrlBtn">Add</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-</body>
-</html>

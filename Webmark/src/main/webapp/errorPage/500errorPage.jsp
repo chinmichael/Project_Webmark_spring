@@ -23,7 +23,7 @@
 			<hr class="my-4">
 			<p>500 Internal Server Error</p>
 				<br>
-			<a class="btn btn-secondary btn-lg" href="/Webmark/tempCover.jsp" role="button"> Go to Webggalpi Home </a>
+			<a class="btn btn-secondary btn-lg" href="/Webmark/cover.jsp" role="button"> Go to Webmark Home </a>
 		</div>
 
 		<jsp:include page="/errorPage/errorPageBottom.jsp"></jsp:include>

@@ -46,7 +46,7 @@ footer {
 
 <!-- navigation -->
 	<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-		<a class="navbar-brand" href="/cover.jsp"><i class="far fa-bookmark"></i>&nbsp;&nbsp;Webmark</a>
+		<a class="navbar-brand" href="/Webmark/cover.jsp"><i class="far fa-bookmark"></i>&nbsp;&nbsp;Webmark</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarTogglerDemo02"
 			aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -57,7 +57,7 @@ footer {
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<c:if test = "${not empty account }">
-				<li class="nav-item"><a class="nav-link" href="/main/markList.jsp">List
+				<li class="nav-item"><a class="nav-link" href="/mark/markList.jsp">List
 						 <span class="sr-only">(current)</span> 
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Community</a></li>

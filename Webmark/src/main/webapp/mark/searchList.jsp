@@ -9,13 +9,15 @@
 
 			<li class="list-group-item" style="line-height: 40px;"><a
 				href="${urlL.url_address }" target="_blank">${urlL.url_name}</a> <%-- Button trigger modal --%>
-				<a style = "color : gray;" href = "/Webmark/WebmarkServlet?command=url_list&cat_no=${urlL.cat_no }"> ${urlL.cat_name }</a>
+				<a style = "color : #BDBDBD;" href = "/Webmark/url/urlList.html?cat_no=${urlL.cat_no }"> ${urlL.cat_name }</a>
 				
 				<button type="button" class="btn btn-light float-right"
 					data-toggle="modal" style="box-shadow: none;"
 					data-target="#trashUrlModal${urlL.url_num}">
 					<i class="fas fa-trash"></i>
-				</button> <%-- Modal --%>
+				</button>
+				
+				<%-- Modal --%>
 				<div class="modal fade" id="trashUrlModal${urlL.url_num}"
 					tabindex="-1" aria-labelledby="trashUrlModal${urlL.url_num}Label"
 					aria-hidden="true">
@@ -42,10 +44,11 @@
 							</div>
 						</div>
 					</div>
-				</div> <%-- edit url --%>
-
+				</div>
+				
+				<%-- edit url --%>
 				<button type="button" class="btn btn-light float-right"
-					style="box-shadow: none;" data-toggle="modal"
+					style="box-shadow: none; margin-right:5px;" data-toggle="modal"
 					data-target="#editURLModal${urlL.url_num }">
 					<i class="fas fa-edit"></i>
 				</button>
@@ -132,10 +135,11 @@
 							</form>
 						</div>
 					</div>
-				</div> <%-- move url --%>
-
+				</div>
+				
+				<%-- move url --%>
 				<button type="button" class="btn btn-light float-right"
-					style="box-shadow: none;"
+					style="box-shadow: none; margin-right:5px;"
 					onclick="window.open('${urlL.url_address }')">
 					<i class="fas fa-map-marker-alt"></i>
 				</button></li>

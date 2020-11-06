@@ -6,19 +6,50 @@
 
 <!-- 로그인 관련 -->
 
-<select id="loginById" parameterType="com.webmark.model.AccountVO" resultType="com.webmark.model.AccountVO">
-	select user_id as userid, user_pw as userpw, user_name as username, user_nick as usernick,
-		   e_mail as email, user_type as usertype, to_char(create_date, 'yyyy/mm/dd') "createdate"
-	from accountwm
-	where user_id = #{userid} and user_pw = #{userpw}
+<select id="findPass" parameterType="String" resultType="String">
+	select user_pw from accountwm where user_id = #{userid} or e_mail = #{userid}
 </select>
 
-<select id="loginByEmail" parameterType="com.webmark.model.AccountVO" resultType="com.webmark.model.AccountVO">
+<select id="findSalt" parameterType="String" resultType="String">
+	select salt from saltwm where user_id = #{userid} or e_mail = #{userid}
+</select>
+
+<select id="getLogin" parameterType="String" resultType="com.webmark.model.AccountVO">
 	select user_id as userid, user_pw as userpw, user_name as username, user_nick as usernick,
 		   e_mail as email, user_type as usertype, to_char(create_date, 'yyyy/mm/dd') "createdate"
 	from accountwm
-	where e_mail = #{userid} and user_pw = #{userpw}
+	where user_id = #{userid} or e_mail = #{userid}
 </select>
+
+<!-- 회원등록 및 정보변경 관련 -->
+<select id="checkId" parameterType="String" resultType="String">
+	select user_id from accountwm where user_id = #{userid}
+</select>
+
+<insert id="joinAccount" parameterType="com.webmark.model.AccountRegVO">
+	insert into accountwm(user_id,user_pw,user_name,user_nick,e_mail) values(#{userid},#{userpw},#{username},#{usernick},#{email})
+</insert>
+
+<insert id="addSalt" parameterType="com.webmark.model.AccountRegVO">
+	insert into saltwm values (#{userid},#{email},#{salt})
+</insert>
+
+<select id="checkEmail" parameterType="String" resultType="String">
+	select user_id from accountwm where e_mail = #{email}
+</select>
+
+<update id="changeAccountInfo" parameterType="com.webmark.model.AccountRegVO">
+	update accountwm set user_pw = #{userpw}, user_name = #{username}, user_nick = #{usernick}, e_mail = #{email}
+	where user_id = #{userid}
+</update>
+
+<update id="changeToAdmin" parameterType="String">
+	update accountwm set user_type = '1' where user_id = #{userid}
+</update>
+
+<delete id="deleteAccount" parameterType="String">
+	delete from accountwm where user_id = #{userid}
+</delete>
 
 <!-- 카테고리, URL 조회 관련 -->
 
@@ -35,7 +66,7 @@
 </select>
 
 <select id="searchUrl" parameterType="com.webmark.model.SearchUrlVO" resultType="com.webmark.model.SearchUrlVO">
-	select u.cat_num, cat_name, url_num, url_address, url_name, url_access, tag
+	select u.cat_num as cat_no, cat_name, url_num, url_address, url_name, url_access, tag
 	from urlwm u, category c
 	where u.cat_num = c.cat_num and c.user_id = #{userid} and u.url_name like #{url_name}
 </select>
@@ -57,7 +88,7 @@
 <!-- URL 편집 관련 -->
 
 <select id="checkUrlName" parameterType="com.webmark.model.UrlVO" resultType="Long">
-	select url_num from urlwm where cat_num = #{cat_no} and url_name = #{url_name}
+	select url_num from urlwm where cat_num = #{cat_check} and url_name = #{url_name}
 </select>
 
 <insert id="addUrl" parameterType="com.webmark.model.UrlVO">
@@ -65,7 +96,7 @@
 </insert>
 
 <update id="editUrl" parameterType="com.webmark.model.UrlVO">
-	update urlwm set cat_num = #{cat_no}, url_address = #{url_address}, url_name = #{url_name}, url_access = #{url_access}, tag = #{tag}
+	update urlwm set cat_num = #{cat_check}, url_address = #{url_address}, url_name = #{url_name}, url_access = #{url_access}, tag = #{tag}
 	where url_num = #{url_num}
 </update>
 

@@ -22,7 +22,7 @@
 			<hr class="my-4">
 			<p>404 Not Found</p>
 				<br>
-			<a class="btn btn-secondary btn-lg" href="/Webmark/tempCover.jsp" role="button">Go to Webggalpi Home</a>
+			<a class="btn btn-secondary btn-lg" href="/Webmark/cover.jsp" role="button">Go to Webmark Home</a>
 		</div>
 		
 

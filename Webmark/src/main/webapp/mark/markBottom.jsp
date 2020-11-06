@@ -8,6 +8,18 @@
 </footer>
 </div>
 
+<script type="text/javascript">
+	function searchUrlCheck(frm) {
+		var check = frm.urlSearch.value;
+		if(check == "" || check == null) {
+			alert("Please input search word");
+			return false;
+		}
+		return true;
+	}
+
+</script>
+
 <c:if test = "${empty account }">
 		<script type = "text/javascript">
 			window.onload = function() {

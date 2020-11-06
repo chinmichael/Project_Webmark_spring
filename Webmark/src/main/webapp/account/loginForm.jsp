@@ -32,7 +32,8 @@
 						<form:input path="userid" cssClass="form-control" value="${loginError }"/>
 						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userid"/></font>
 					</div>
-					<p class="card-text" style = "margin-bottom: 5px;">Password :</p>
+					<p class="card-text" style = "margin-bottom: 5px;">Password :
+					<a href="/Webmark/account/sendFindMailForm.jsp" style="font-size:10pt; margin-left:63px;">Finding password</a></p>
 					<div class="form-group">
 						<form:password path="userpw" cssClass="form-control"/>
 						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userpw"/></font>
