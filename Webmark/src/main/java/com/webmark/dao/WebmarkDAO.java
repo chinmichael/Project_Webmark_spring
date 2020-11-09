@@ -25,6 +25,7 @@ public interface WebmarkDAO {
 	public Integer changeAccountInfo (AccountRegVO vo);
 	public Integer changeToAdmin (String userid);
 	public Integer deleteAccount (String userid);
+	public Integer readyChangePass (AccountVO vo);
 	
 	// 카테고리, URL 조회 관련
 	public String categoryCheckId (long cat_no);

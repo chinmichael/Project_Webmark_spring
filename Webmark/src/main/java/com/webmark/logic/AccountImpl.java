@@ -72,4 +72,21 @@ public class AccountImpl implements Account {
 		return null;
 	}
 
+	public String readyFindMail(String email) {
+		String result = "0";
+		String check = dao.checkEmail(email);
+		if(check == null) {
+			return result;
+		}
+		String getSalt = salt.makeSalt();
+		AccountVO vo = new AccountVO();
+		vo.setEmail(email);
+		vo.setSalt(getSalt);
+		Integer updateCheck = dao.readyChangePass(vo);
+		if(updateCheck == 1) {
+			result = getSalt;
+		}
+		return result;
+	}
+
 }

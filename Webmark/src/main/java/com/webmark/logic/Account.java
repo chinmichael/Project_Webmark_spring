@@ -11,4 +11,5 @@ public interface Account {
 	public Integer changeAccount(AccountRegVO vo);
 	public Integer checkRight(String userid);
 	public Integer deleteUser(String userid);
+	public String readyFindMail(String email);
 }

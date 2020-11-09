@@ -57,7 +57,7 @@ footer {
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 				<c:if test = "${not empty account }">
-				<li class="nav-item"><a class="nav-link" href="/mark/markList.jsp">List
+				<li class="nav-item"><a class="nav-link" href="/Webmark/mark/markList.jsp">List
 						 <span class="sr-only">(current)</span> 
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Community</a></li>
@@ -84,7 +84,7 @@ footer {
 						</a>
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="/account/accountInfo.jsp">Account</a>
+								<a class="dropdown-item" href="/Webmark/account/accountInfo.jsp">Account</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="/Webmark/account/logout.html">Logout</a>
 							</div></li>

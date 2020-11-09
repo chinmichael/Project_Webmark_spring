@@ -53,6 +53,18 @@
 	</bean>
 	
 	<!-- 아이디 비번 인증을 통한 자바메일 관련 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"
+		p:host="smtp.naver.com"
+		p:port="587"
+		p:username="uzukiel77@naver.com"
+		>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
 	
 	
 	<context:annotation-config>

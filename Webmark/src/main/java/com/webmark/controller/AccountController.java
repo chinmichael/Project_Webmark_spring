@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.webmark.logic.Account;
 import com.webmark.logic.Category;
+import com.webmark.logic.Mail;
 import com.webmark.model.AccountRegVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
+import com.webmark.model.PassMailVO;
 
 @Controller
 public class AccountController {
@@ -25,6 +27,8 @@ public class AccountController {
 	Account account;
 	@Autowired
 	Category category;
+	@Autowired
+	Mail mail;
 	
 	@RequestMapping(value="/account/login.html")
 	public ModelAndView login(@Valid @ModelAttribute AccountVO user, BindingResult br, HttpSession session) {
@@ -120,8 +124,24 @@ public class AccountController {
 			mav.addObject("mailError", "Please input your e-mail");
 			return mav;
 		}
+		String result = account.readyFindMail(email);
+		if(result.equals("0")) {
+			mav.addObject("mailError", "This e-mail is not available");
+			return mav;
+		}
+		PassMailVO vo = new PassMailVO();
+		vo.setTo(email);
+		vo.setSubject("Webmark 계정 재설정");
+		vo.setContents(result);
+		mav = new ModelAndView("cover");
+		mail.sendPassMail(vo);
 		
-		mav = new ModelAndView("account/resetPassForm");
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/resetForm")
+	public ModelAndView resetForm (String key) {
+		ModelAndView mav = new ModelAndView("account/resetPassForm");
 		mav.addObject(new AccountRegVO());
 		return mav;
 	}

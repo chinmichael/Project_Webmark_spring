@@ -51,6 +51,10 @@
 	delete from accountwm where user_id = #{userid}
 </delete>
 
+<insert id="readyChangePass" parameterType="com.webmark.model.AccountVO">
+	update accountwm set reset_time = sysdate, reset_key = #{salt} where e_mail = #{email}
+</insert>
+
 <!-- 카테고리, URL 조회 관련 -->
 
 <select id="categoryCheckId" parameterType="long" resultType="String">

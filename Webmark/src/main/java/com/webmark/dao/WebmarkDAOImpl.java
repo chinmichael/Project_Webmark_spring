@@ -62,6 +62,10 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 	public Integer deleteAccount(String userid) {
 		return session.delete(mn + "deleteAccount", userid);
 	}
+	
+	public Integer readyChangePass(AccountVO vo) {
+		return session.update(mn + "readyChangePass", vo);
+	}
 
 	// 카테고리, URL 조회 관련
 	public List<CategoryVO> getCategoryList(String userid) {

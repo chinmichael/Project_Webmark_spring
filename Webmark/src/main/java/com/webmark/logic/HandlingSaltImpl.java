@@ -20,6 +20,21 @@ public class HandlingSaltImpl implements HandlingSalt {
 	@Autowired
 	WebmarkDAO dao;
 	
+	public String makeSalt() {
+		String salt = "";
+		
+		try {
+			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+			byte[] bytes = new byte[16];
+			random.nextBytes(bytes);
+			salt = new String(Base64.getEncoder().encode(bytes));
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return salt;
+	}
+	
 	public AccountRegVO inputSalt(AccountRegVO vo) {
 		
 		String userpw = vo.getUserpw(); 
@@ -69,4 +84,5 @@ public class HandlingSaltImpl implements HandlingSalt {
 		}	
 		return result;
 	}
+
 }
