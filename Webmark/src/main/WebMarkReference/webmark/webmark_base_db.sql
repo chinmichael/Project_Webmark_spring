@@ -20,6 +20,8 @@ CREATE TABLE accountwm (
 	/*user_avatar	BLOB,*/
 	create_date	DATE		DEFAULT SYSDATE,
 	reset_time	DATE,
+	last_login_date	DATE,
+	last_change_date	DATE,
 	reset_key		VARCHAR2(4000),
 	CONSTRAINT PK_accountwm		PRIMARY KEY(user_id)
 );

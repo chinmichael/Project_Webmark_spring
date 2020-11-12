@@ -82,7 +82,7 @@ background-color: #EDF1F4;
 						&nbsp; ${account.usernick} &nbsp;
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item" href="#">Account</a>
+						<a class="dropdown-item" href="/Webmark/home/accountHome.html">Account</a>
 							<div class="dropdown-divider"></div>
 							<a class="dropdown-item" href="/Webmark/account/logout.html">Logout</a>
 					</div>
@@ -106,14 +106,14 @@ background-color: #EDF1F4;
 	</nav>
 
 	<!-- category -->
-	<div class="container-fluid">
-		<div class="row min-vh-100 flex-column flex-md-row" style = "margin-bottom: 50px;">
+	<div class="container-fluid"> <%--전환시점을 xl(1200)기준으로 잡기 위해 column-xl-~로 하여 잡는다. --%>
+		<div class="row min-vh-100 flex-column flex-xl-row" style = "margin-bottom: 50px;">
 
-			<aside class="col-12 col-md-2 p-0 bg-light flex-shrink-1" style="overflow: auto;">
+			<aside class="col-12 col-xl-2 p-0 bg-light" style="overflow: auto;">
 				
-				<nav class="navbar navbar-expand-lg navbar-light bg-light flex-md-column flex-md-row align-items-start py-2">
+				<nav class="navbar navbar-expand-xl navbar-light bg-light flex-xl-column flex-xl-row align-items-start py-2">
 					<a class="navbar-brand" href="/Webmark/mark/markList.jsp">
-						<i class="fas fa-swatchbook"></i> &nbsp;Category</a>
+						<i class="fas fa-swatchbook"></i>&nbsp;Category</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						data-target="#navbarNavAltMarkup"
 						aria-controls="navbarNavAltMarkup" aria-expanded="false"

@@ -14,23 +14,29 @@
 	select salt from saltwm where user_id = #{userid} or e_mail = #{userid}
 </select>
 
-<select id="getLogin" parameterType="String" resultType="com.webmark.model.AccountVO">
-	select user_id as userid, user_pw as userpw, user_name as username, user_nick as usernick,
-		   e_mail as email, user_type as usertype, to_char(create_date, 'yyyy/mm/dd') "createdate"
+<select id="getLogin" parameterType="String" resultType="com.webmark.model.AccountLoginVO">
+	select user_id as userid, user_pw as userpw, user_name as username, user_nick as usernick, e_mail as email, user_type as usertype,
+		   to_char(create_date, 'yyyy.mm.dd') "createdate",
+		   to_char(last_login_date, 'yyyy.mm.dd hh24:mi') "lastlogin",
+		   to_char(last_change_date, 'yyyy.mm.dd hh24:mi') "lastchange"
 	from accountwm
 	where user_id = #{userid} or e_mail = #{userid}
 </select>
+
+<update id="loginTime" parameterType="String">
+	update accountwm set last_login_date = sysdate where user_id = #{userid} or e_mail = #{userid}
+</update>
 
 <!-- 회원등록 및 정보변경 관련 -->
 <select id="checkId" parameterType="String" resultType="String">
 	select user_id from accountwm where user_id = #{userid}
 </select>
 
-<insert id="joinAccount" parameterType="com.webmark.model.AccountRegVO">
+<insert id="joinAccount" parameterType="com.webmark.model.AccountVO">
 	insert into accountwm(user_id,user_pw,user_name,user_nick,e_mail) values(#{userid},#{userpw},#{username},#{usernick},#{email})
 </insert>
 
-<insert id="addSalt" parameterType="com.webmark.model.AccountRegVO">
+<insert id="addSalt" parameterType="com.webmark.model.AccountVO">
 	insert into saltwm values (#{userid},#{email},#{salt})
 </insert>
 
@@ -38,8 +44,12 @@
 	select user_id from accountwm where e_mail = #{email}
 </select>
 
-<update id="changeAccountInfo" parameterType="com.webmark.model.AccountRegVO">
-	update accountwm set user_pw = #{userpw}, user_name = #{username}, user_nick = #{usernick}, e_mail = #{email}
+<select id="checkPermissionId" parameterType="String" resultType="String">
+	select user_id from accountwm where (user_id = #{userid} or e_mail = #{userid}) and user_type = '0'
+</select>
+
+<update id="changeAccountInfo" parameterType="com.webmark.model.AccountVO">
+	update accountwm set user_pw = #{userpw}, user_name = #{username}, user_nick = #{usernick}, e_mail = #{email}, last_change_date = sysdate
 	where user_id = #{userid}
 </update>
 
@@ -54,6 +64,25 @@
 <insert id="readyChangePass" parameterType="com.webmark.model.AccountVO">
 	update accountwm set reset_time = sysdate, reset_key = #{salt} where e_mail = #{email}
 </insert>
+
+<select id="checkKeyTime" parameterType="String" resultType="String">
+	select user_id from accountwm
+	where reset_key = #{key} and reset_time + 1 >= sysdate
+</select>
+
+<select id="checkPassKey" parameterType="com.webmark.model.AccountVO" resultType="String">
+	select user_id from accountwm
+	where (user_id = #{userid} or e_mail = #{userid}) and reset_key = #{key} and reset_time + 1 >= sysdate
+</select>
+
+<update id="changePass" parameterType="com.webmark.model.AccountVO">
+	update accountwm set reset_key = '', reset_time = '', user_pw = #{userpw}, last_change_date = sysdate
+	where user_id = #{userid} or e_mail = #{userid}
+</update>
+
+<update id="changeSalt" parameterType="com.webmark.model.AccountVO">
+	update saltwm set salt = #{salt} where user_id = #{userid} or e_mail = #{userid}
+</update>
 
 <!-- 카테고리, URL 조회 관련 -->
 
@@ -177,5 +206,15 @@
 <delete id="deleteNotice" parameterType="long">
 	delete from notice where notice_num = #{notice_num}
 </delete>
+
+<!-- 기타 -->
+
+<select id="countCategory" parameterType="String" resultType="Integer">
+	select count(cat_num) from category where user_id = #{userid}
+</select>
+
+<select id="countUrl" parameterType="String" resultType="Integer">
+	select count(u.url_num) from category c, urlwm u where c.user_id = #{userid} and c.cat_num = u.cat_num
+</select>
 
 </mapper>

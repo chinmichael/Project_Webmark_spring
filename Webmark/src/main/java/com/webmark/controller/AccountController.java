@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.webmark.logic.Account;
 import com.webmark.logic.Category;
 import com.webmark.logic.Mail;
+import com.webmark.model.AccountLoginVO;
+import com.webmark.model.AccountPassVO;
 import com.webmark.model.AccountRegVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
@@ -31,7 +33,7 @@ public class AccountController {
 	Mail mail;
 	
 	@RequestMapping(value="/account/login.html")
-	public ModelAndView login(@Valid @ModelAttribute AccountVO user, BindingResult br, HttpSession session) {
+	public ModelAndView login(@Valid @ModelAttribute AccountLoginVO user, BindingResult br, HttpSession session) {
 		
 		ModelAndView mav;
 		
@@ -41,7 +43,7 @@ public class AccountController {
 			return mav;
 		}
 		
-		AccountVO login = account.login(user);
+		AccountLoginVO login = account.login(user);
 		if(login != null) {
 			mav = new ModelAndView("redirect:/mark/markList.jsp");
 			session.setAttribute("account", login);
@@ -52,7 +54,7 @@ public class AccountController {
 			
 		} else {
 			mav = new ModelAndView("account/loginForm");
-			mav.addObject(new AccountVO());
+			mav.addObject(new AccountLoginVO());
 			mav.addObject("loginError", user.getUserid());
 			return mav;
 		}
@@ -62,7 +64,7 @@ public class AccountController {
 	public ModelAndView logout(HttpSession session) {
 		ModelAndView mav = new ModelAndView("account/loginForm");
 		session.invalidate();
-		mav.addObject(new AccountVO());
+		mav.addObject(new AccountLoginVO());
 		return mav;
 	}
 	
@@ -100,10 +102,10 @@ public class AccountController {
 		Integer result = account.joinNewAccount(reg);
 		if(result == 1) {
 			mav = new ModelAndView("redirect:/mark/markList.jsp");
-			AccountVO user = new AccountVO();
+			AccountLoginVO user = new AccountLoginVO();
 			user.setUserid(reg.getUserid());
 			user.setUserpw(pw);
-			AccountVO login = account.login(user);
+			AccountLoginVO login = account.login(user);
 			session.setAttribute("account", login);
 			List<CategoryVO> list = category.getList(login.getUserid());
 			session.setAttribute("categoryList", list);
@@ -133,7 +135,8 @@ public class AccountController {
 		vo.setTo(email);
 		vo.setSubject("Webmark 계정 재설정");
 		vo.setContents(result);
-		mav = new ModelAndView("cover");
+		mav = new ModelAndView("redirect:/account/resetConfirmForm.jsp");
+		mav.addObject("changePassMsg", "We sent password change address to your E-mail. Please confirm.");
 		mail.sendPassMail(vo);
 		
 		return mav;
@@ -141,8 +144,106 @@ public class AccountController {
 	
 	@RequestMapping(value="/account/resetForm")
 	public ModelAndView resetForm (String key) {
+		ModelAndView mav = null;
+		Integer check = account.checkPassKeyTime(key);
+		if(check != 1) {
+			mav = new ModelAndView("redirect:/account/resetConfirmForm.jsp");
+			mav.addObject("changePassMsg", "This url is not available.");
+			return mav;
+		}
+		mav = new ModelAndView("account/resetPassForm");
+		mav.addObject(new AccountPassVO());
+		mav.addObject("key", key);
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/changePass")
+	public ModelAndView changePass (@Valid @ModelAttribute AccountPassVO vo, BindingResult br) {
 		ModelAndView mav = new ModelAndView("account/resetPassForm");
-		mav.addObject(new AccountRegVO());
+		
+		if(br.hasErrors()) {
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+		if(account.checkKeyAndId(vo) != 1) {
+			mav.addObject("idError", "error");
+			return mav;
+		}
+		if(!vo.getUserpw().equals(vo.getConfirm())) {
+			mav.getModel().putAll(br.getModel());
+			mav.addObject("confirmError", "error");
+			return mav;
+		}
+		mav = new ModelAndView("redirect:/account/resetConfirmForm.jsp");
+		if(account.changePass(vo) != 1) {
+			mav.addObject("changePassMsg", "Error has occured. Please contact the administrator.");
+			return mav;
+		}
+		mav.addObject("changePassMsg", "Password change is complete. Please log-in with the changed password.");
+		
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/changeAccount.html")
+	public ModelAndView changeAccount(@Valid @ModelAttribute AccountRegVO info, BindingResult br, HttpSession session) {
+		ModelAndView mav = new ModelAndView("account/accountManage");
+		if(br.hasErrors()) {
+			mav.getModel().putAll(br.getModel());
+			return mav;
+		}
+		if(account.checkEmail(info) != 1) {
+			mav.getModel().putAll(br.getModel());
+			mav.addObject("duplicationMail", "error");
+			return mav;
+		}
+		if(account.changeAccount(info) == 1) {
+			mav.setViewName("redirect:/home/accountManage.html");
+			mav.addObject("message", "Change Success");
+			AccountVO login = account.getChangedInfo(info.getUserid());
+			session.setAttribute("account", login);
+			session.setMaxInactiveInterval(24*60*60);
+		} else {
+			mav.addObject("message", "Account Change Error");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/dropAccount.html")
+	public ModelAndView dropAccount(String userpw, HttpSession session) {
+		ModelAndView mav = new ModelAndView("account/accountDrop");
+		AccountVO login = (AccountVO)session.getAttribute("account");
+		login.setUserpw(userpw);
+		Integer result = account.deleteUser(login);
+		
+		if(result == 1) {
+			mav.setViewName("redirect:/cover.jsp");
+			session.invalidate();
+		} else {
+			mav.addObject("passError", "error");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/permissionCheck.html")
+	public ModelAndView permissionCheck(String userid) {
+		ModelAndView mav = new ModelAndView("account/accountPermission");
+		if(account.checkPermissionId(userid) == 1) {
+			mav.addObject("upgradeId", userid);
+		} else {
+			mav.addObject("idError", userid);
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/account/permissionSet.html")
+	public ModelAndView permissionSet (String upgradeId) {
+		ModelAndView mav = new ModelAndView("redirect:/account/accountPermission.jsp");
+		Integer result = account.changeRight(upgradeId);
+		if(result == 1) {
+			mav.addObject("message", "Change Success");
+		} else {
+			mav.addObject("message", "Change Error");
+		}
 		return mav;
 	}
 }

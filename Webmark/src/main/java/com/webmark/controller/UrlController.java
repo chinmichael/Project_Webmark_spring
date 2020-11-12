@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.webmark.logic.Url;
-import com.webmark.model.AccountVO;
+import com.webmark.model.AccountLoginVO;
 import com.webmark.model.SearchUrlVO;
 import com.webmark.model.UrlVO;
 
@@ -25,7 +25,7 @@ public class UrlController {
 	public ModelAndView urlList (HttpSession session, long cat_no) {
 		ModelAndView mav = new ModelAndView("mark/markList");
 		
-		AccountVO account = (AccountVO) session.getAttribute("account");
+		AccountLoginVO account = (AccountLoginVO) session.getAttribute("account");
 		String userid = account.getUserid();
 		Integer check = url.checkId(userid, cat_no);
 		
@@ -41,7 +41,7 @@ public class UrlController {
 	public ModelAndView searchUrl (HttpSession session, String urlSearch) {
 		ModelAndView mav = new ModelAndView("mark/markList");
 
-		AccountVO user = (AccountVO) session.getAttribute("account");
+		AccountLoginVO user = (AccountLoginVO) session.getAttribute("account");
 		SearchUrlVO vo = new SearchUrlVO();
 		vo.setUrl_name(urlSearch);
 		vo.setUserid(user.getUserid());

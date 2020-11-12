@@ -26,14 +26,14 @@
 			<div class="card-header bg-transparent border-dark" style = "text-align:center; font-size: 15pt;">
 			<i class="far fa-bookmark"></i>&nbsp;&nbsp;Sign in to Webmark</div>
 			<div class="card-body text-secondary">
-				<form:form modelAttribute="accountVO" action="/Webmark/account/login.html" method="post" name="loginFrm">
+				<form:form modelAttribute="accountLoginVO" action="/Webmark/account/login.html" method="post" name="loginFrm">
 					<p class="card-text" style = "margin-bottom: 5px;">ID or E-mail :</p>
 					<div class="form-group">
 						<form:input path="userid" cssClass="form-control" value="${loginError }"/>
 						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userid"/></font>
 					</div>
 					<p class="card-text" style = "margin-bottom: 5px;">Password :
-					<a href="/Webmark/account/sendFindMailForm.jsp" style="font-size:10pt; margin-left:63px;">Finding password</a></p>
+					<a href="/Webmark/account/sendFindMailForm.jsp" style="font-size:10pt; text-align:right;">Finding password</a></p>
 					<div class="form-group">
 						<form:password path="userpw" cssClass="form-control"/>
 						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userpw"/></font>

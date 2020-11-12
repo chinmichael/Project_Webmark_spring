@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.webmark.model.AccountRegVO;
+import com.webmark.model.AccountLoginVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
 import com.webmark.model.NoticePagingVO;
@@ -22,7 +22,7 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 	private String mn = "com.webmark.mapper.webmarkMapper."; // mn = mapperName
 	
 	// 로그인 관련
-	public AccountVO getLogin(String userid) {
+	public AccountLoginVO getLogin(String userid) {
 		return session.selectOne(mn + "getLogin", userid);
 	}
 	
@@ -32,6 +32,10 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 	
 	public String findSalt (String userid) {
 		return session.selectOne(mn + "findSalt", userid);
+	}
+	
+	public void loginTime (String userid) {
+		session.update(mn + "loginTime", userid);
 	}
 
 	// 회원등록, 회원정보 변경 관련
@@ -43,18 +47,22 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 		return session.selectOne(mn + "checkEmail", email);
 	}
 
-	public Integer joinAccount(AccountRegVO vo) {
+	public Integer joinAccount(AccountVO vo) {
 		return session.insert(mn + "joinAccount", vo);
 	}
 	
-	public Integer addSalt(AccountRegVO vo) {
+	public Integer addSalt(AccountVO vo) {
 		return session.insert(mn + "addSalt", vo);
 	}
 
-	public Integer changeAccountInfo(AccountRegVO vo) {
+	public Integer changeAccountInfo(AccountVO vo) {
 		return session.update(mn + "changeAccountInfo", vo);
 	}
-
+	
+	public String checkPermissionId(String userid) {
+		return session.selectOne(mn + "checkPermissionId", userid);
+	}
+	
 	public Integer changeToAdmin(String userid) {
 		return session.update(mn + "changeToAdmin", userid);
 	}
@@ -63,8 +71,26 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 		return session.delete(mn + "deleteAccount", userid);
 	}
 	
+	// 비밀번호 찾기 및 변경
+	
 	public Integer readyChangePass(AccountVO vo) {
 		return session.update(mn + "readyChangePass", vo);
+	}
+	
+	public String checkKeyTime(String key) {
+		return session.selectOne(mn + "checkKeyTime", key);
+	}
+
+	public String checkPassKey(AccountVO vo) {
+		return session.selectOne(mn + "checkPassKey", vo);
+	}
+
+	public Integer changePass(AccountVO vo) {
+		return session.update(mn + "changePass", vo);
+	}
+
+	public Integer changeSalt(AccountVO vo) {
+		return session.update(mn + "changeSalt", vo);
 	}
 
 	// 카테고리, URL 조회 관련
@@ -158,6 +184,15 @@ public class WebmarkDAOImpl implements WebmarkDAO {
 
 	public Integer deleteNotice(long notice_num) {
 		return session.delete(mn + "deleteNotice", notice_num);
+	}
+	
+	// 기타
+	public Integer countCategory(String userid) {
+		return session.selectOne(mn + "countCategory", userid);
+	}
+
+	public Integer countUrl(String userid) {
+		return session.selectOne(mn + "countUrl", userid);
 	}
 
 }

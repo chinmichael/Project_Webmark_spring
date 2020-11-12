@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.webmark.logic.Category;
 import com.webmark.logic.Url;
-import com.webmark.model.AccountVO;
+import com.webmark.model.AccountLoginVO;
 import com.webmark.model.CategoryVO;
 import com.webmark.model.UrlVO;
 
@@ -29,7 +29,7 @@ public class CategoryController {
 		
 		ModelAndView mav = null;
 		
-		AccountVO user = (AccountVO) session.getAttribute("account");
+		AccountLoginVO user = (AccountLoginVO) session.getAttribute("account");
 		String cat_name = request.getParameter("addCategoryName");
 		
 		CategoryVO vo = new CategoryVO();
@@ -61,7 +61,7 @@ public class CategoryController {
 		} 
 		
 		session.removeAttribute("categoryList");
-		AccountVO user = (AccountVO) session.getAttribute("account");
+		AccountLoginVO user = (AccountLoginVO) session.getAttribute("account");
 		List<CategoryVO> list = category.getList(user.getUserid());
 		session.setAttribute("categoryList", list);
 		

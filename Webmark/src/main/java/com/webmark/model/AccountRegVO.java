@@ -5,7 +5,7 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class AccountRegVO {
+public class AccountRegVO extends AccountVO {
 	
 	@Pattern(regexp="[A-Za-z\\d]{5,20}$",
 			message="Only 5~20 English lowercase letters and numbers are available")
@@ -13,7 +13,6 @@ public class AccountRegVO {
 	@Pattern(regexp="(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,16}$",
 			message="Please use 8~16 English letters, numbers and special characters") // https://code.i-harness.com/ko-kr/q/12b269e
 	private String userpw;
-	private String salt;
 	@NotEmpty(message="Please check passowrd")
 	private String confirm;
 	@NotEmpty(message="Please input your name")
@@ -23,8 +22,6 @@ public class AccountRegVO {
 	@NotEmpty(message="Please input your e-mail")
 	@Email(message="This e-mail form is not available")
 	private String email;
-	private String usertype;
-	private String createdate;
 	
 	public String getUserid() {
 		return userid;
@@ -37,12 +34,6 @@ public class AccountRegVO {
 	}
 	public void setUserpw(String userpw) {
 		this.userpw = userpw;
-	}
-	public String getSalt() {
-		return salt;
-	}
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 	public String getConfirm() {
 		return confirm;
@@ -68,18 +59,4 @@ public class AccountRegVO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getUsertype() {
-		return usertype;
-	}
-	public void setUsertype(String usertype) {
-		this.usertype = usertype;
-	}
-	public String getCreatedate() {
-		return createdate;
-	}
-	public void setCreatedate(String createdate) {
-		this.createdate = createdate;
-	}
-	
-	
 }

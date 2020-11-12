@@ -1,20 +1,19 @@
 package com.webmark.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 public class AccountVO {
-	
-	@NotEmpty(message="Please put in your ID")
 	private String userid;
-	@NotEmpty(message="Please put in your Password")
 	private String userpw;
+	private String confirm;
+	private String email;
 	private String salt;
 	private String username;
 	private String usernick;
-	private String email;
 	private String usertype;
 	private String createdate;
-	
+	private String key;
+	private String resetdate;
+	private String lastlogin;
+	private String lastchange;
 	public String getUserid() {
 		return userid;
 	}
@@ -26,6 +25,18 @@ public class AccountVO {
 	}
 	public void setUserpw(String userpw) {
 		this.userpw = userpw;
+	}
+	public String getConfirm() {
+		return confirm;
+	}
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getSalt() {
 		return salt;
@@ -45,12 +56,6 @@ public class AccountVO {
 	public void setUsernick(String usernick) {
 		this.usernick = usernick;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
 	public String getUsertype() {
 		return usertype;
 	}
@@ -63,7 +68,30 @@ public class AccountVO {
 	public void setCreatedate(String createdate) {
 		this.createdate = createdate;
 	}
-	
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getResetdate() {
+		return resetdate;
+	}
+	public void setResetdate(String resetdate) {
+		this.resetdate = resetdate;
+	}
+	public String getLastlogin() {
+		return lastlogin;
+	}
+	public void setLastlogin(String lastlogin) {
+		this.lastlogin = lastlogin;
+	}
+	public String getLastchange() {
+		return lastchange;
+	}
+	public void setLastchange(String lastchange) {
+		this.lastchange = lastchange;
+	}
 	
 	
 }

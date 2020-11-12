@@ -57,7 +57,7 @@
 		p:host="smtp.naver.com"
 		p:port="587"
 		p:username="uzukiel77@naver.com"
-		>
+		p:password="michael17026#!">
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.auth">true</prop>

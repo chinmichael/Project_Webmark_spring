@@ -85,7 +85,7 @@ footer {
 						</a>
 							<div class="dropdown-menu"
 								aria-labelledby="navbarDropdownMenuLink">
-								<a class="dropdown-item" href="/Webmark/account/AccountModify.jsp">Account</a>
+								<a class="dropdown-item" href="/Webmark/home/accountHome.html">Account</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item"
 									href="/Webmark/account/logout.html">Logout</a>

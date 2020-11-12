@@ -14,8 +14,8 @@
 			style="max-width: 18rem; margin-top: 80px;">
 
 			<div class="card-header bg-transparent border-dark"
-				style="text-align: center; font-size: 15pt;">
-				<i class="far fa-bookmark"></i>&nbsp;&nbsp;Finding Password
+				style="text-align: center; font-size: 15pt; padding-left:12px;">
+				<i class="fas fa-search"></i>&nbsp;&nbsp;Finding Password
 			</div>
 			<div class="card-body text-secondary">
 				<form action="/Webmark/account/findByMail.html" method="post">

@@ -21,6 +21,7 @@ public class PassMailVO extends MailVO {
 		sb.append("<button style=\"background:#31B404;border:0;color:white;outline:0;height:20pt;border-radius:5px;\">");
 		sb.append("<a style=\"text-decoration:none;color:white;\"");
 		sb.append("href=\"http://192.168.0.191:8180/Webmark/account/resetForm.html?key="+key+"\">비밀번호 변경</a></button></td></tr>");
+		sb.append("</form>");
 		sb.append("<tr><td style=\"padding-top:10px;padding-left:10px;height:20pt;\">");
 		sb.append("위 링크는 24시간 후 사용이 불가하며, 한 번만 사용 가능합니다.</td></tr>");
 		sb.append("<tr><td style=\"padding-left:10px;height:20pt;\">이 메일 이후 새로운 재설정 요청을 하셨다면 이 메일은 사용이 불가능합니다.</td></tr>");

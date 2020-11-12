@@ -3,15 +3,16 @@
 package com.webmark.logic;
 
 import java.math.BigInteger;
+
 import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.Base64;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.webmark.dao.WebmarkDAO;
-import com.webmark.model.AccountRegVO;
 import com.webmark.model.AccountVO;
 
 @Service
@@ -20,22 +21,13 @@ public class HandlingSaltImpl implements HandlingSalt {
 	@Autowired
 	WebmarkDAO dao;
 	
-	public String makeSalt() {
-		String salt = "";
-		
-		try {
-			SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
-			byte[] bytes = new byte[16];
-			random.nextBytes(bytes);
-			salt = new String(Base64.getEncoder().encode(bytes));
-			
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return salt;
+	public String makeUUID() {
+		String uuid1 = UUID.randomUUID().toString().replace("-", "");
+		String uuid2 = UUID.randomUUID().toString().replace("-", "");
+		return uuid1 + uuid2;
 	}
 	
-	public AccountRegVO inputSalt(AccountRegVO vo) {
+	public AccountVO inputSalt(AccountVO vo) {
 		
 		String userpw = vo.getUserpw(); 
 		

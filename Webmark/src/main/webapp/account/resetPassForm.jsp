@@ -21,14 +21,14 @@
 				<i class="fas fa-feather-alt"></i>&nbsp;&nbsp;Change Password Form
 			</div>
 			<div class="card-body text-secondary">
-				<form:form modelAttribute="accountRegVO" action="/Webmark/account/join.html" method="post">
-					<input type="hidden" name="key" value="${param.key}">
+				<form:form modelAttribute="accountPassVO" action="/Webmark/account/changePass.html" method="post">
+					<form:hidden path="key" value="${key }" />
 					<p class="card-text" style="margin-bottom: 5px;">ID or E-mail :</p>
 					<div class="form-group">
 						<form:input cssClass="form-control" path="userid"/>
 						<font color="red" style="font-size:10pt; padding-bottom:0px; margin-bottom:0px;"><form:errors path="userid"/></font>
-						<c:if test="${not empty duplicationId}">
-						<font style = "margin-top : 10px; color:red; font-size:10pt;">This ID is already used.</font>
+						<c:if test="${not empty idError}">
+						<font style = "margin-top : 10px; color:red; font-size:10pt;">This ID is not available</font>
 						</c:if>
 					</div>
 					

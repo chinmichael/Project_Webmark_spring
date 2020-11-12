@@ -2,7 +2,7 @@ package com.webmark.dao;
 
 import java.util.List;
 
-import com.webmark.model.AccountRegVO;
+import com.webmark.model.AccountLoginVO;
 import com.webmark.model.AccountVO;
 import com.webmark.model.CategoryVO;
 import com.webmark.model.NoticePagingVO;
@@ -13,19 +13,28 @@ import com.webmark.model.UrlVO;
 public interface WebmarkDAO {
 	
 	// 로그인 관련
-	public AccountVO getLogin (String userid);
+	public AccountLoginVO getLogin (String userid);
 	public String findPass (String userid);
 	public String findSalt (String userid);
+	public void loginTime (String userid);
 	
 	// 회원등록, 회원정보 변경 관련
 	public String checkId (String userid);
-	public Integer joinAccount (AccountRegVO vo);
-	public Integer addSalt(AccountRegVO vo);
+	public Integer joinAccount (AccountVO vo);
+	public Integer addSalt(AccountVO vo);
 	public String checkEmail (String email);
-	public Integer changeAccountInfo (AccountRegVO vo);
+	public Integer changeAccountInfo (AccountVO vo);
+	public String checkPermissionId(String userid);
 	public Integer changeToAdmin (String userid);
 	public Integer deleteAccount (String userid);
+	
+	// 비밀번호 찾기 및 변경
+	
 	public Integer readyChangePass (AccountVO vo);
+	public String checkKeyTime (String key);
+	public String checkPassKey (AccountVO vo);
+	public Integer changePass (AccountVO vo);
+	public Integer changeSalt (AccountVO vo);
 	
 	// 카테고리, URL 조회 관련
 	public String categoryCheckId (long cat_no);
@@ -64,5 +73,9 @@ public interface WebmarkDAO {
 	public Integer addNoticeWithAttach (NoticeVO vo);
 	public Integer editNotice (NoticeVO vo);
 	public Integer deleteNotice (long notice_num);
+	
+	// 기타
+	public Integer countCategory (String userid);
+	public Integer countUrl (String userid);
 	
 }
